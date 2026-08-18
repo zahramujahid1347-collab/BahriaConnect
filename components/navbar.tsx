@@ -67,7 +67,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="btn btn-ghost btn-square relative z-50"
+            className="btn btn-ghost btn-square relative z-50 touch-manipulation select-none"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="mobile-nav"

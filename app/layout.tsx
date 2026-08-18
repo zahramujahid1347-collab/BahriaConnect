@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Manrope, Inter, Nunito } from "next/font/google";
 import "./globals.css";
 
@@ -17,6 +17,12 @@ const nunito = Nunito({
   subsets: ["latin"],
   weight: ["700", "800"],
 });
+
+// Explicit viewport ensures touch-friendly behavior (no tap delay, no double-tap zoom).
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   title: {
