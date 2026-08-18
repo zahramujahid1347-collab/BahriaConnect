@@ -87,49 +87,57 @@ export default function Navbar() {
                 onClick={() => setOpen(false)}
                 aria-hidden="true"
               />
-              <ul
+              <div
                 id="mobile-nav"
-                className="menu absolute right-0 top-full z-50 mt-2 w-64 rounded-box border border-fog bg-white p-2 shadow-lg"
+                className="absolute right-0 top-full z-50 mt-2 w-72 overflow-hidden rounded-box border border-fog bg-white shadow-lg"
               >
-                {navLinks.map((l) => (
-                  <li key={l.href}>
+                <ul className="menu w-full p-2">
+                  {navLinks.map((l) => (
+                    <li key={l.href}>
+                      <Link
+                        href={l.href}
+                        onClick={() => setOpen(false)}
+                        className="font-display font-semibold"
+                      >
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                  <li>
                     <Link
-                      href={l.href}
+                      href="/management"
                       onClick={() => setOpen(false)}
                       className="font-display font-semibold"
                     >
-                      {l.label}
+                      Management
                     </Link>
                   </li>
-                ))}
-                <li>
-                  <Link
-                    href="/management"
-                    onClick={() => setOpen(false)}
-                    className="font-display font-semibold"
-                  >
-                    Management
-                  </Link>
-                </li>
-                <li>
+                </ul>
+
+                <div className="space-y-2 border-t border-fog bg-cream/70 p-3">
                   <Link
                     href="/login"
                     onClick={() => setOpen(false)}
-                    className="font-display font-semibold"
+                    className="btn btn-outline w-full border-ink font-display font-semibold text-ink hover:border-ink hover:bg-ink-tint"
                   >
                     Sign in
                   </Link>
-                </li>
-                <li className="mt-1 border-t border-fog pt-1">
+                  <Link
+                    href="/register"
+                    onClick={() => setOpen(false)}
+                    className="btn btn-ghost w-full font-display font-semibold text-slate-gray"
+                  >
+                    Create a resident account
+                  </Link>
                   <Link
                     href="/services"
                     onClick={() => setOpen(false)}
-                    className="font-display font-semibold text-ink"
+                    className="btn w-full border-0 bg-amber font-display font-semibold text-warning-content hover:bg-amber/90"
                   >
                     Request Service
                   </Link>
-                </li>
-              </ul>
+                </div>
+              </div>
             </>
           )}
         </div>
