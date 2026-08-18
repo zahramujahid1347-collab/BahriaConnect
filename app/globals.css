@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* daisyUI — single custom "bahriaconnect" theme from the brand kit   */
+/* ------------------------------------------------------------------ */
+@plugin "daisyui" {
+  themes: false;
+}
+
+@plugin "daisyui/theme" {
+  name: "bahriaconnect";
+  default: true;
+  color-scheme: light;
+
+  --color-base-100: #f5f1e8; /* Cream BG            */
+  --color-base-200: #e8ddc8; /* Bahria Sand         */
+  --color-base-300: #d8d3c8; /* Fog Gray            */
+  --color-base-content: #3a372f; /* Charcoal Text   */
+
+  --color-primary: #1e4d5c; /* Trust Ink           */
+  --color-primary-content: #ffffff;
+
+  --color-secondary: #e8ddc8; /* Bahria Sand        */
+  --color-secondary-content: #3a372f;
+
+  --color-accent: #e8b04b; /* Amber Soft          */
+  --color-accent-content: #3a372f;
+
+  --color-neutral: #3a372f; /* Charcoal Text       */
+  --color-neutral-content: #ffffff;
+
+  --color-info: #8fb9c4; /* Confirm Sky         */
+  --color-info-content: #3a372f;
+
+  --color-success: #3f8f6f; /* Verified Green      */
+  --color-success-content: #ffffff;
+
+  --color-warning: #e8b04b; /* Amber Soft          */
+  --color-warning-content: #3a372f;
+
+  --color-error: #d96c4b; /* Alert Coral         */
+  --color-error-content: #ffffff;
+
+  --radius-selector: 1rem; /* pill badges         */
+  --radius-field: 0.75rem; /* 12px fields/buttons */
+  --radius-box: 1rem; /* 16px cards          */
+
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Brand tokens (exact hex values from the brand kit)                  */
+/* ------------------------------------------------------------------ */
+@theme {
+  --color-ink: #1e4d5c;
+  --color-ink-deep: #163a45;
+  --color-ink-tint: #cfe0e4;
+  --color-sand: #e8ddc8;
+  --color-cream: #f5f1e8;
+  --color-charcoal: #3a372f;
+  --color-amber: #e8b04b;
+  --color-verified: #3f8f6f;
+  --color-green-tint: #d8ece3;
+  --color-coral: #d96c4b;
+  --color-sky: #8fb9c4;
+  --color-slate-gray: #6b6b63;
+  --color-fog: #d8d3c8;
+}
+
+@theme inline {
+  --font-display: var(--font-manrope);
+  --font-sans: var(--font-inter);
+  --font-badge: var(--font-nunito);
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-charcoal);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Brand texture: subtle dotted grid, nodding to structured data */
+.bg-dots {
+  background-image: radial-gradient(
+    circle,
+    rgba(30, 77, 92, 0.12) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
+.bg-dots-light {
+  background-image: radial-gradient(
+    circle,
+    rgba(245, 241, 232, 0.16) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
+/* Visible keyboard focus */
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
