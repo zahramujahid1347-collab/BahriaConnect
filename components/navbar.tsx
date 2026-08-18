@@ -1,6 +1,9 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Logo from "./logo";
-import { MenuIcon } from "./icons";
+import { MenuIcon, XIcon } from "./icons";
 
 const navLinks = [
   { href: "/services", label: "Services" },
@@ -9,6 +12,18 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const [open, setOpen] = useState(false);
+
+  // Close the menu with the Escape key for keyboard users.
+  useEffect(() => {
+    if (!open) return;
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
   return (
     <header className="sticky top-0 z-40 border-b border-fog/60 bg-cream/90 backdrop-blur">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4 sm:px-6">
@@ -47,43 +62,77 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile menu */}
-        <details className="dropdown dropdown-end md:hidden">
-          <summary
-            className="btn btn-ghost btn-square"
-            aria-label="Open menu"
-            tabIndex={0}
+        {/* Mobile menu — state-driven so it reliably opens/closes */}
+        <div className="relative md:hidden">
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="btn btn-ghost btn-square relative z-50"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
           >
-            <MenuIcon className="h-6 w-6" />
-          </summary>
-          <ul className="menu dropdown-content z-50 mt-3 w-64 rounded-box border border-fog bg-white p-2 shadow-lg">
-            {navLinks.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} className="font-display font-semibold">
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <Link href="/management" className="font-display font-semibold">
-                Management
-              </Link>
-            </li>
-            <li>
-              <Link href="/login" className="font-display font-semibold">
-                Sign in
-              </Link>
-            </li>
-            <li className="mt-1 border-t border-fog pt-1">
-              <Link
-                href="/services"
-                className="font-display font-semibold text-ink"
+            {open ? (
+              <XIcon className="h-6 w-6" />
+            ) : (
+              <MenuIcon className="h-6 w-6" />
+            )}
+          </button>
+
+          {open && (
+            <>
+              {/* Overlay sits below the header so the logo + toggle stay usable */}
+              <div
+                className="fixed inset-x-0 top-16 bottom-0 z-40 bg-black/30"
+                onClick={() => setOpen(false)}
+                aria-hidden="true"
+              />
+              <ul
+                id="mobile-nav"
+                className="menu absolute right-0 top-full z-50 mt-2 w-64 rounded-box border border-fog bg-white p-2 shadow-lg"
               >
-                Request Service
-              </Link>
-            </li>
-          </ul>
-        </details>
+                {navLinks.map((l) => (
+                  <li key={l.href}>
+                    <Link
+                      href={l.href}
+                      onClick={() => setOpen(false)}
+                      className="font-display font-semibold"
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+                <li>
+                  <Link
+                    href="/management"
+                    onClick={() => setOpen(false)}
+                    className="font-display font-semibold"
+                  >
+                    Management
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/login"
+                    onClick={() => setOpen(false)}
+                    className="font-display font-semibold"
+                  >
+                    Sign in
+                  </Link>
+                </li>
+                <li className="mt-1 border-t border-fog pt-1">
+                  <Link
+                    href="/services"
+                    onClick={() => setOpen(false)}
+                    className="font-display font-semibold text-ink"
+                  >
+                    Request Service
+                  </Link>
+                </li>
+              </ul>
+            </>
+          )}
+        </div>
       </div>
     </header>
   );
