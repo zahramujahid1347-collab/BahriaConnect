@@ -143,19 +143,22 @@ export default function LoginPage() {
               Sign in as {role === "resident" ? "Resident" : "Management"}
             </button>
 
-            {role === "management" ? (
-              <p className="text-center text-xs text-slate-gray">
-                Management accounts are provisioned by Bahria Town. If you don’t
-                have access, contact the platform administrator.
-              </p>
-            ) : (
-              <p className="text-center text-sm text-slate-gray">
-                New to BahriaConnect?{" "}
-                <Link href="/register" className="link link-hover link-primary font-semibold">
-                  Create a resident account
-                </Link>
-              </p>
-            )}
+            <p className="text-center text-sm text-slate-gray">
+              New to BahriaConnect?{" "}
+              <Link
+                href="/register"
+                className="link link-hover link-primary font-semibold"
+              >
+                Create a resident account
+              </Link>{" "}
+              or{" "}
+              <Link
+                href="/register?role=management"
+                className="link link-hover link-primary font-semibold"
+              >
+                create a management account
+              </Link>
+            </p>
           </div>
         </form>
       </main>
