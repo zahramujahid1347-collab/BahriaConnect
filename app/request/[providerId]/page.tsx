@@ -27,7 +27,7 @@ export default async function RequestPage({
           </h1>
           <Link
             href="/services"
-            className="btn mt-6 border-0 bg-ink font-display font-semibold text-white"
+            className="btn mt-6 border-0 bg-ink font-display font-semibold text-paper"
           >
             Browse services
           </Link>

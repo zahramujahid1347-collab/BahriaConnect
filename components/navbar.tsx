@@ -6,15 +6,15 @@ import Logo from "./logo";
 import { MenuIcon, XIcon } from "./icons";
 
 const navLinks = [
-  { href: "/services", label: "Services" },
   { href: "/#how-it-works", label: "How it works" },
-  { href: "/#trust", label: "Trust & Safety" },
+  { href: "/services", label: "Services" },
+  { href: "/#verification", label: "Verification" },
+  { href: "/management", label: "For Management" },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
-  // Close the menu with the Escape key for keyboard users.
   useEffect(() => {
     if (!open) return;
     function onKeyDown(e: KeyboardEvent) {
@@ -25,49 +25,43 @@ export default function Navbar() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-fog/60 bg-cream/90 backdrop-blur">
-      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4 sm:px-6">
+    <header className="sticky top-0 z-50 border-b border-ink/10 bg-paper/90 backdrop-blur">
+      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-5 sm:px-8">
         <Logo />
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
           {navLinks.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="font-display text-sm font-semibold text-charcoal transition-colors hover:text-ink"
+              className="text-[14px] text-ink/70 transition-colors hover:text-ink"
             >
               {l.label}
             </Link>
           ))}
-          <Link
-            href="/management"
-            className="font-display text-sm font-semibold text-slate-gray transition-colors hover:text-ink"
-          >
-            Management
-          </Link>
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-4 lg:flex">
           <Link
             href="/login"
-            className="btn btn-ghost font-display text-sm font-semibold text-ink"
+            className="text-sm font-medium text-ink/70 underline decoration-ink/25 underline-offset-4 transition-colors hover:text-ink"
           >
             Sign in
           </Link>
           <Link
             href="/services"
-            className="btn border-0 bg-amber font-display text-sm font-semibold text-warning-content hover:bg-amber/90"
+            className="rounded-md bg-seal px-4 py-2 text-sm font-medium text-paper transition-colors hover:bg-seal-dark"
           >
-            Request Service
+            Get Started
           </Link>
         </div>
 
-        {/* Mobile menu — state-driven so it reliably opens/closes */}
-        <div className="relative md:hidden">
+        {/* Mobile menu */}
+        <div className="relative lg:hidden">
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="btn btn-ghost btn-square relative z-50 touch-manipulation select-none"
+            className="-mr-2 p-2 text-ink"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="mobile-nav"
@@ -81,7 +75,6 @@ export default function Navbar() {
 
           {open && (
             <>
-              {/* Overlay sits below the header so the logo + toggle stay usable */}
               <div
                 className="fixed inset-x-0 top-16 bottom-0 z-40 bg-black/30"
                 onClick={() => setOpen(false)}
@@ -89,7 +82,7 @@ export default function Navbar() {
               />
               <div
                 id="mobile-nav"
-                className="absolute right-0 top-full z-50 mt-2 w-72 overflow-hidden rounded-box border border-fog bg-white shadow-lg"
+                className="absolute right-0 top-full z-50 mt-2 w-72 overflow-hidden rounded-xl border border-ink/10 bg-paper shadow-lg"
               >
                 <ul className="menu w-full p-2">
                   {navLinks.map((l) => (
@@ -97,44 +90,35 @@ export default function Navbar() {
                       <Link
                         href={l.href}
                         onClick={() => setOpen(false)}
-                        className="font-display font-semibold"
+                        className="text-[15px] font-medium text-ink/80"
                       >
                         {l.label}
                       </Link>
                     </li>
                   ))}
-                  <li>
-                    <Link
-                      href="/management"
-                      onClick={() => setOpen(false)}
-                      className="font-display font-semibold"
-                    >
-                      Management
-                    </Link>
-                  </li>
                 </ul>
 
-                <div className="space-y-2 border-t border-fog bg-cream/70 p-3">
+                <div className="space-y-2 border-t border-ink/10 p-3">
                   <Link
                     href="/login"
                     onClick={() => setOpen(false)}
-                    className="btn btn-outline w-full border-ink font-display font-semibold text-ink hover:border-ink hover:bg-ink-tint"
+                    className="btn btn-outline w-full border-ink/20 text-ink hover:border-ink/40 hover:bg-paper"
                   >
                     Sign in
                   </Link>
                   <Link
                     href="/register"
                     onClick={() => setOpen(false)}
-                    className="btn btn-ghost w-full font-display font-semibold text-slate-gray"
+                    className="btn btn-ghost w-full font-medium text-ink/70"
                   >
                     Create a resident account
                   </Link>
                   <Link
                     href="/services"
                     onClick={() => setOpen(false)}
-                    className="btn w-full border-0 bg-amber font-display font-semibold text-warning-content hover:bg-amber/90"
+                    className="btn w-full border-0 bg-seal font-medium text-paper hover:bg-seal-dark"
                   >
-                    Request Service
+                    Get Started
                   </Link>
                 </div>
               </div>

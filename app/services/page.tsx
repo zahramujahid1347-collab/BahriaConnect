@@ -40,7 +40,7 @@ export default async function ServicesPage({
     <>
       <Navbar />
       <main>
-        <section className="border-b border-fog/60 bg-white">
+        <section className="border-b border-fog/60 bg-card">
           <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
             <Eyebrow>Browse services</Eyebrow>
             <h1 className="mt-2 font-display text-4xl font-extrabold tracking-tight text-ink">
@@ -64,7 +64,7 @@ export default async function ServicesPage({
               </label>
               <button
                 type="submit"
-                className="btn join-item border-0 bg-ink font-display font-semibold text-white hover:bg-ink-deep"
+                className="btn join-item border-0 bg-ink font-display font-semibold text-paper hover:bg-ink-deep"
               >
                 Search
               </button>
@@ -108,9 +108,9 @@ export default async function ServicesPage({
                       <Link
                         key={c.slug}
                         href={`/services/${c.slug}`}
-                        className="group flex items-start gap-4 rounded-box border border-fog bg-white p-5 transition-all hover:border-ink/40 hover:shadow-[0_2px_8px_rgba(30,77,92,0.08)]"
+                        className="group flex items-start gap-4 rounded-box border border-fog bg-card p-5 transition-all hover:border-ink/40 hover:shadow-[0_2px_8px_rgba(30,77,92,0.08)]"
                       >
-                        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-box bg-ink-tint text-ink transition-colors group-hover:bg-ink group-hover:text-white">
+                        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-box bg-ink-tint text-ink transition-colors group-hover:bg-ink group-hover:text-paper">
                           <ServiceIcon name={c.icon} className="h-6 w-6" />
                         </span>
                         <span className="flex-1">

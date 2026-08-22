@@ -43,7 +43,7 @@ export default function CategoryBrowser({
   return (
     <div>
       {/* Filters */}
-      <div className="rounded-box border border-fog bg-white p-4">
+      <div className="rounded-box border border-fog bg-card p-4">
         <div className="flex flex-wrap items-center gap-3">
           <label className="input join-item flex min-w-56 flex-1 items-center gap-2 border-fog bg-cream">
             <SearchIcon className="h-4 w-4 text-slate-gray" />
@@ -104,7 +104,7 @@ export default function CategoryBrowser({
           ))}
         </div>
       ) : (
-        <div className="mt-6 rounded-box border border-dashed border-fog bg-white p-12 text-center">
+        <div className="mt-6 rounded-box border border-dashed border-fog bg-card p-12 text-center">
           <p className="font-display text-lg font-bold text-ink">
             No providers match those filters.
           </p>

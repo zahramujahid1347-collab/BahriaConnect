@@ -54,7 +54,7 @@ export default function RequestManagement({
 
   return (
     <div>
-      <div className="flex flex-wrap items-center gap-3 rounded-box border border-fog bg-white p-4">
+      <div className="flex flex-wrap items-center gap-3 rounded-box border border-fog bg-card p-4">
         <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-charcoal">
           <FilterIcon className="h-4 w-4" /> Filters
         </span>
@@ -83,7 +83,7 @@ export default function RequestManagement({
         </span>
       </div>
 
-      <div className="mt-5 overflow-x-auto rounded-box border border-fog bg-white">
+      <div className="mt-5 overflow-x-auto rounded-box border border-fog bg-card">
         <table className="table">
           <thead>
             <tr className="text-slate-gray">
@@ -99,7 +99,7 @@ export default function RequestManagement({
           <tbody>
             {rows.map((r) => (
               <tr key={r.id} className="hover:bg-cream/50">
-                <td className="font-badge text-xs text-slate-gray">#{r.id}</td>
+                <td className="font-mono text-xs text-slate-gray">#{r.id}</td>
                 <td>
                   <p className="font-semibold text-charcoal">{r.resident}</p>
                   <p className="text-xs text-slate-gray">{r.precinct}</p>

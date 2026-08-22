@@ -58,7 +58,7 @@ export default function ResidentDashboard({
 
   return (
     <div>
-      <div role="tablist" className="tabs tabs-box bg-white">
+      <div role="tablist" className="tabs tabs-box bg-card">
         {tabs.map((t) => (
           <button
             key={t.id}
@@ -92,7 +92,7 @@ export default function ResidentDashboard({
             {favorites.map((p) => (
               <div
                 key={p.id}
-                className="card bg-white shadow-[0_2px_8px_rgba(30,77,92,0.08)]"
+                className="card bg-card shadow-[0_2px_8px_rgba(30,77,92,0.08)]"
               >
                 <div className="card-body gap-3 p-5">
                   <div className="flex items-center gap-3">
@@ -113,7 +113,7 @@ export default function ResidentDashboard({
                   <div className="card-actions">
                     <Link
                       href={`/request/${p.id}`}
-                      className="btn btn-sm flex-1 border-0 bg-amber font-display font-semibold text-warning-content hover:bg-amber/90"
+                      className="btn btn-sm flex-1 border-0 bg-seal font-display font-semibold text-paper hover:bg-seal-dark"
                     >
                       Request again
                     </Link>
@@ -135,7 +135,7 @@ export default function ResidentDashboard({
             {notifications.map((n) => (
               <li
                 key={n.id}
-                className={`flex items-start gap-3 rounded-box border bg-white p-4 ${
+                className={`flex items-start gap-3 rounded-box border bg-card p-4 ${
                   n.unread ? "border-ink/40" : "border-fog"
                 }`}
               >
@@ -185,11 +185,11 @@ function RequestList({
 }) {
   if (requests.length === 0) {
     return (
-      <div className="rounded-box border border-dashed border-fog bg-white p-12 text-center">
+      <div className="rounded-box border border-dashed border-fog bg-card p-12 text-center">
         <p className="font-display text-lg font-bold text-ink">{empty}</p>
         <Link
           href="/services"
-          className="btn mt-4 border-0 bg-ink font-display font-semibold text-white"
+          className="btn mt-4 border-0 bg-ink font-display font-semibold text-paper"
         >
           Find a provider
         </Link>
@@ -204,9 +204,9 @@ function RequestList({
         .sort((a, b) => (statusOrder[a.status] ?? 9) - (statusOrder[b.status] ?? 9))
         .map((r) => (
           <li key={r.id}>
-            <div className="card bg-white shadow-[0_2px_8px_rgba(30,77,92,0.08)]">
+            <div className="card bg-card shadow-[0_2px_8px_rgba(30,77,92,0.08)]">
               <div className="card-body flex-row flex-wrap items-center gap-4 p-5">
-                <span className="badge badge-neutral font-badge text-[11px] tracking-wide text-white">
+                <span className="badge badge-neutral font-mono text-[11px] tracking-wide text-paper">
                   #{r.id}
                 </span>
                 <div className="min-w-0 flex-1">

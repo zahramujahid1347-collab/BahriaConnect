@@ -24,7 +24,7 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        <form className="card mt-8 bg-white shadow-[0_2px_8px_rgba(30,77,92,0.08)]">
+        <form className="card mt-8 bg-card shadow-[0_2px_8px_rgba(30,77,92,0.08)]">
           <div className="card-body gap-4 p-6">
             <fieldset className="fieldset">
               <legend className="fieldset-legend font-display font-semibold text-charcoal">
@@ -105,7 +105,7 @@ export default function RegisterPage() {
 
             <button
               type="submit"
-              className="btn w-full border-0 bg-amber font-display font-semibold text-warning-content hover:bg-amber/90"
+              className="btn w-full border-0 bg-seal font-display font-semibold text-paper hover:bg-seal-dark"
             >
               Create account
             </button>

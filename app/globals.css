@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ */
-/* daisyUI — single custom "bahriaconnect" theme from the brand kit   */
+/* daisyUI — single custom "bahriaconnect" theme                       */
+/* Palette: ink / paper / sage / seal / brass / clay (from design)     */
 /* ------------------------------------------------------------------ */
 @plugin "daisyui" {
   themes: false;
@@ -12,38 +13,38 @@
   default: true;
   color-scheme: light;
 
-  --color-base-100: #f5f1e8; /* Cream BG            */
-  --color-base-200: #e8ddc8; /* Bahria Sand         */
-  --color-base-300: #d8d3c8; /* Fog Gray            */
-  --color-base-content: #3a372f; /* Charcoal Text   */
+  --color-base-100: #f6f3ea; /* paper           */
+  --color-base-200: #e4e8dc; /* sage            */
+  --color-base-300: #d7dccb; /* border / fog    */
+  --color-base-content: #1b2420; /* ink         */
 
-  --color-primary: #1e4d5c; /* Trust Ink           */
-  --color-primary-content: #ffffff;
+  --color-primary: #2f5d3a; /* seal            */
+  --color-primary-content: #f6f3ea;
 
-  --color-secondary: #e8ddc8; /* Bahria Sand        */
-  --color-secondary-content: #3a372f;
+  --color-secondary: #e4e8dc; /* sage           */
+  --color-secondary-content: #1b2420;
 
-  --color-accent: #e8b04b; /* Amber Soft          */
-  --color-accent-content: #3a372f;
+  --color-accent: #b8863b; /* brass           */
+  --color-accent-content: #1b2420;
 
-  --color-neutral: #3a372f; /* Charcoal Text       */
-  --color-neutral-content: #ffffff;
+  --color-neutral: #1b2420; /* ink             */
+  --color-neutral-content: #f6f3ea;
 
-  --color-info: #8fb9c4; /* Confirm Sky         */
-  --color-info-content: #3a372f;
+  --color-info: #4c7c55; /* seal-light       */
+  --color-info-content: #f6f3ea;
 
-  --color-success: #3f8f6f; /* Verified Green      */
-  --color-success-content: #ffffff;
+  --color-success: #2f5d3a; /* seal            */
+  --color-success-content: #f6f3ea;
 
-  --color-warning: #e8b04b; /* Amber Soft          */
-  --color-warning-content: #3a372f;
+  --color-warning: #b8863b; /* brass           */
+  --color-warning-content: #1b2420;
 
-  --color-error: #d96c4b; /* Alert Coral         */
-  --color-error-content: #ffffff;
+  --color-error: #b54834; /* clay             */
+  --color-error-content: #f6f3ea;
 
-  --radius-selector: 1rem; /* pill badges         */
-  --radius-field: 0.75rem; /* 12px fields/buttons */
-  --radius-box: 1rem; /* 16px cards          */
+  --radius-selector: 1rem; /* pill badges      */
+  --radius-field: 0.25rem; /* sharp buttons    */
+  --radius-box: 1rem; /* rounded cards    */
 
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
@@ -53,28 +54,40 @@
 }
 
 /* ------------------------------------------------------------------ */
-/* Brand tokens (exact hex values from the brand kit)                  */
+/* Brand tokens                                                        */
 /* ------------------------------------------------------------------ */
 @theme {
-  --color-ink: #1e4d5c;
-  --color-ink-deep: #163a45;
-  --color-ink-tint: #cfe0e4;
-  --color-sand: #e8ddc8;
-  --color-cream: #f5f1e8;
-  --color-charcoal: #3a372f;
-  --color-amber: #e8b04b;
-  --color-verified: #3f8f6f;
-  --color-green-tint: #d8ece3;
-  --color-coral: #d96c4b;
-  --color-sky: #8fb9c4;
-  --color-slate-gray: #6b6b63;
-  --color-fog: #d8d3c8;
+  --color-ink: #1b2420;
+  --color-ink-deep: #141a17;
+  --color-ink-tint: #e4e8dc;
+  --color-paper: #f6f3ea;
+  --color-card: #fcfbf6;
+  --color-sage: #e4e8dc;
+  --color-seal: #2f5d3a;
+  --color-seal-dark: #20402a;
+  --color-seal-light: #4c7c55;
+  --color-brass: #b8863b;
+  --color-brass-light: #d9ae6e;
+  --color-clay: #b54834;
+  --color-brass-dark: #8a611f;
+  --color-fog: #d7dccb;
+  --color-slate-gray: #4f5a53;
+
+  /* Legacy aliases — kept so existing utilities keep working */
+  --color-cream: #f6f3ea;
+  --color-sand: #e4e8dc;
+  --color-charcoal: #1b2420;
+  --color-amber: #b8863b;
+  --color-verified: #2f5d3a;
+  --color-green-tint: #e6ecde;
+  --color-coral: #b54834;
+  --color-sky: #4c7c55;
 }
 
 @theme inline {
-  --font-display: var(--font-manrope);
-  --font-sans: var(--font-inter);
-  --font-badge: var(--font-nunito);
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-ibm-plex-sans);
+  --font-mono: var(--font-ibm-plex-mono);
 }
 
 /* ------------------------------------------------------------------ */
@@ -85,35 +98,16 @@ html {
 }
 
 body {
-  background: var(--color-cream);
-  color: var(--color-charcoal);
-  font-family: var(--font-inter), system-ui, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-ibm-plex-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-/* Brand texture: subtle dotted grid, nodding to structured data */
-.bg-dots {
-  background-image: radial-gradient(
-    circle,
-    rgba(30, 77, 92, 0.12) 1px,
-    transparent 1px
-  );
-  background-size: 22px 22px;
-}
-
-.bg-dots-light {
-  background-image: radial-gradient(
-    circle,
-    rgba(245, 241, 232, 0.16) 1px,
-    transparent 1px
-  );
-  background-size: 22px 22px;
-}
-
 /* Visible keyboard focus */
 :focus-visible {
-  outline: 2px solid var(--color-ink);
+  outline: 2px solid var(--color-seal);
   outline-offset: 2px;
   border-radius: 4px;
 }

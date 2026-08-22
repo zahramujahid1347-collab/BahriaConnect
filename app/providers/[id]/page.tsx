@@ -36,7 +36,7 @@ export default async function ProviderPage({
           </h1>
           <Link
             href="/services"
-            className="btn mt-6 border-0 bg-ink font-display font-semibold text-white"
+            className="btn mt-6 border-0 bg-ink font-display font-semibold text-paper"
           >
             Browse services
           </Link>
@@ -56,7 +56,7 @@ export default async function ProviderPage({
     <>
       <Navbar />
       <main>
-        <section className="border-b border-fog/60 bg-white">
+        <section className="border-b border-fog/60 bg-card">
           <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
             <div className="breadcrumbs text-sm text-slate-gray">
               <ul>
@@ -103,7 +103,7 @@ export default async function ProviderPage({
 
               <Link
                 href={`/request/${provider.id}`}
-                className={`btn shrink-0 border-0 bg-amber font-display font-semibold text-warning-content hover:bg-amber/90 ${
+                className={`btn shrink-0 border-0 bg-seal font-display font-semibold text-paper hover:bg-seal-dark ${
                   available ? "" : "btn-disabled"
                 }`}
                 aria-disabled={!available}
@@ -171,7 +171,7 @@ export default async function ProviderPage({
                     {providerReviews.map((r) => (
                       <div
                         key={r.id}
-                        className="rounded-box border border-fog bg-white p-5"
+                        className="rounded-box border border-fog bg-card p-5"
                       >
                         <div className="flex items-center justify-between gap-2">
                           <div className="flex items-center gap-2">
@@ -179,7 +179,7 @@ export default async function ProviderPage({
                               {r.author}
                             </span>
                             {r.verifiedResident && (
-                              <span className="badge badge-ghost gap-1 border-fog font-badge text-[10px] tracking-wide text-verified">
+                              <span className="badge badge-ghost gap-1 border-fog font-mono text-[10px] tracking-wide text-verified">
                                 <CheckIcon className="h-3 w-3" /> Resident
                               </span>
                             )}
@@ -208,7 +208,7 @@ export default async function ProviderPage({
 
             {/* Sidebar */}
             <aside className="space-y-5">
-              <div className="card bg-white shadow-[0_2px_8px_rgba(30,77,92,0.08)]">
+              <div className="card bg-card shadow-[0_2px_8px_rgba(30,77,92,0.08)]">
                 <div className="card-body gap-4 p-5">
                   <h3 className="font-display text-base font-bold text-ink">
                     Request details

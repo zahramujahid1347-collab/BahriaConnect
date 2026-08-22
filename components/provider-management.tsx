@@ -65,7 +65,7 @@ export default function ProviderManagement({
     if (p.verification === "Suspended") {
       return (
         <button
-          className="btn btn-sm border-0 bg-ink text-white hover:bg-ink-deep"
+          className="btn btn-sm border-0 bg-ink text-paper hover:bg-ink-deep"
           onClick={() => setStatusFor(p.id, "Verified")}
         >
           Reactivate
@@ -78,7 +78,7 @@ export default function ProviderManagement({
   return (
     <div>
       {/* Toolbar */}
-      <div className="flex flex-wrap items-center gap-3 rounded-box border border-fog bg-white p-4">
+      <div className="flex flex-wrap items-center gap-3 rounded-box border border-fog bg-card p-4">
         <label className="input join-item flex min-w-56 flex-1 items-center gap-2 border-fog bg-cream">
           <SearchIcon className="h-4 w-4 text-slate-gray" />
           <input
@@ -100,7 +100,7 @@ export default function ProviderManagement({
           ))}
         </select>
         <button
-          className="btn border-0 bg-ink font-display font-semibold text-white hover:bg-ink-deep"
+          className="btn border-0 bg-ink font-display font-semibold text-paper hover:bg-ink-deep"
           onClick={() => dialogRef.current?.showModal()}
         >
           Register provider
@@ -108,7 +108,7 @@ export default function ProviderManagement({
       </div>
 
       {/* Table */}
-      <div className="mt-5 overflow-x-auto rounded-box border border-fog bg-white">
+      <div className="mt-5 overflow-x-auto rounded-box border border-fog bg-card">
         <table className="table">
           <thead>
             <tr className="text-slate-gray">
@@ -161,7 +161,7 @@ export default function ProviderManagement({
 
       {/* Register modal */}
       <dialog ref={dialogRef} className="modal">
-        <div className="modal-box max-w-lg bg-white">
+        <div className="modal-box max-w-lg bg-card">
           <form method="dialog">
             <button
               className="btn btn-ghost btn-sm btn-circle absolute right-3 top-3"
@@ -240,7 +240,7 @@ export default function ProviderManagement({
                 <button className="btn btn-ghost font-display font-semibold text-slate-gray">
                   Cancel
                 </button>
-                <button className="btn border-0 bg-ink font-display font-semibold text-white hover:bg-ink-deep">
+                <button className="btn border-0 bg-ink font-display font-semibold text-paper hover:bg-ink-deep">
                   Save &amp; mark for verification
                 </button>
               </form>

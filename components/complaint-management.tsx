@@ -34,7 +34,7 @@ export default function ComplaintManagement({
       {rows.map((c) => (
         <div
           key={c.id}
-          className="card bg-white shadow-[0_2px_8px_rgba(30,77,92,0.06)]"
+          className="card bg-card shadow-[0_2px_8px_rgba(30,77,92,0.06)]"
         >
           <div className="card-body gap-4 p-5 sm:p-6">
             <div className="flex flex-wrap items-start justify-between gap-3">
@@ -48,7 +48,7 @@ export default function ComplaintManagement({
                       {c.reason}
                     </h2>
                     <span
-                      className={`badge border-0 font-badge text-[11px] tracking-wide ${statusStyles[c.status]}`}
+                      className={`badge border-0 font-mono text-[11px] tracking-wide ${statusStyles[c.status]}`}
                     >
                       {c.status}
                     </span>
@@ -67,7 +67,7 @@ export default function ComplaintManagement({
             <div className="card-actions justify-end">
               {c.status === "Open" && (
                 <button
-                  className="btn btn-sm border-0 bg-amber font-display font-semibold text-warning-content hover:bg-amber/90"
+                  className="btn btn-sm border-0 bg-seal font-display font-semibold text-paper hover:bg-seal-dark"
                   onClick={() => setStatus(c.id, "Under Review")}
                 >
                   Start review
@@ -95,7 +95,7 @@ export default function ComplaintManagement({
       ))}
 
       {rows.length === 0 && (
-        <div className="rounded-box border border-dashed border-fog bg-white p-12 text-center">
+        <div className="rounded-box border border-dashed border-fog bg-card p-12 text-center">
           <p className="font-display text-lg font-bold text-ink">
             No complaints to review.
           </p>

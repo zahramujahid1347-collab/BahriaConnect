@@ -50,7 +50,7 @@ export default async function CategoryPage({
           </p>
           <Link
             href="/services"
-            className="btn mt-6 border-0 bg-ink font-display font-semibold text-white"
+            className="btn mt-6 border-0 bg-ink font-display font-semibold text-paper"
           >
             Browse all services
           </Link>
@@ -64,7 +64,7 @@ export default async function CategoryPage({
     <>
       <Navbar />
       <main>
-        <section className="border-b border-fog/60 bg-white">
+        <section className="border-b border-fog/60 bg-card">
           <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
             <div className="breadcrumbs text-sm text-slate-gray">
               <ul>
@@ -76,7 +76,7 @@ export default async function CategoryPage({
             </div>
 
             <div className="mt-2 flex items-center gap-4">
-              <span className="flex h-14 w-14 items-center justify-center rounded-box bg-ink text-white">
+              <span className="flex h-14 w-14 items-center justify-center rounded-box bg-ink text-paper">
                 <ServiceIcon name={cat.icon} className="h-8 w-8" />
               </span>
               <div>
@@ -96,7 +96,7 @@ export default async function CategoryPage({
           {list.length > 0 ? (
             <CategoryBrowser category={cat} providers={list} />
           ) : (
-            <div className="rounded-box border border-dashed border-fog bg-white p-12 text-center">
+            <div className="rounded-box border border-dashed border-fog bg-card p-12 text-center">
               <p className="font-display text-lg font-bold text-ink">
                 Providers are being vetted in this category.
               </p>

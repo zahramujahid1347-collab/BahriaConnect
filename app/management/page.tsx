@@ -39,13 +39,13 @@ export default function ManagementPage() {
         </div>
         <Link
           href="/management/providers"
-          className="btn border-0 bg-ink font-display font-semibold text-white hover:bg-ink-deep"
+          className="btn border-0 bg-ink font-display font-semibold text-paper hover:bg-ink-deep"
         >
           Register a provider
         </Link>
       </div>
 
-      <div className="stats stats-vertical mt-8 w-full rounded-box border border-fog bg-white shadow-[0_2px_8px_rgba(30,77,92,0.06)] sm:stats-horizontal">
+      <div className="stats stats-vertical mt-8 w-full rounded-box border border-fog bg-card shadow-[0_2px_8px_rgba(30,77,92,0.06)] sm:stats-horizontal">
         {stats.map((s) => (
           <div key={s.label} className="stat">
             <div className="stat-title text-slate-gray">{s.label}</div>
@@ -70,7 +70,7 @@ export default function ManagementPage() {
             </Link>
           </div>
 
-          <div className="mt-4 overflow-x-auto rounded-box border border-fog bg-white">
+          <div className="mt-4 overflow-x-auto rounded-box border border-fog bg-card">
             <table className="table table-sm">
               <thead>
                 <tr className="text-slate-gray">
@@ -83,7 +83,7 @@ export default function ManagementPage() {
               <tbody>
                 {requests.slice(0, 5).map((r) => (
                   <tr key={r.id} className="hover:bg-cream/50">
-                    <td className="font-badge text-xs text-slate-gray">#{r.id}</td>
+                    <td className="font-mono text-xs text-slate-gray">#{r.id}</td>
                     <td className="font-semibold text-charcoal">{r.service}</td>
                     <td className="text-charcoal">{r.providerName}</td>
                     <td>
@@ -101,7 +101,7 @@ export default function ManagementPage() {
           <h2 className="font-display text-xl font-bold text-ink">
             Most requested services
           </h2>
-          <ol className="mt-4 overflow-hidden rounded-box border border-fog bg-white">
+          <ol className="mt-4 overflow-hidden rounded-box border border-fog bg-card">
             {mostRequested.map((s, i) => (
               <li
                 key={s}

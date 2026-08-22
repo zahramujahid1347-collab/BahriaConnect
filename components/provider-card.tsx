@@ -1,79 +1,79 @@
 import Link from "next/link";
 import type { Provider } from "@/lib/types";
 import { InitialsAvatar } from "./avatar";
-import { RatingStars, VerificationBadge } from "./badges";
-import { MapPinIcon, ArrowRightIcon } from "./icons";
+import { VerificationBadge } from "./badges";
 
 export function ProviderCard({ provider }: { provider: Provider }) {
   const unavailable = provider.verification !== "Verified";
   return (
-    <div className="card bg-white shadow-[0_2px_8px_rgba(30,77,92,0.08)]">
-      <div className="card-body gap-4 p-5 sm:p-6">
-        <div className="flex items-start gap-4">
-          <InitialsAvatar name={provider.name} className="h-14 w-14" />
-          <div className="min-w-0 flex-1">
-            <div className="flex items-center justify-between gap-2">
-              <h3 className="font-display text-lg font-bold text-ink">
-                {provider.name}
-              </h3>
-              <VerificationBadge status={provider.verification} />
-            </div>
-            <p className="text-sm text-slate-gray">{provider.title}</p>
-            <div className="mt-1.5 flex items-center gap-1.5">
-              <RatingStars rating={provider.rating} />
-              <span className="text-sm font-semibold text-charcoal">
-                {provider.rating.toFixed(1)}
-              </span>
-              <span className="text-sm text-slate-gray">
-                ({provider.reviewCount})
-              </span>
-            </div>
+    <div className="rounded-2xl border border-ink/10 bg-card p-6 shadow-[0_20px_50px_-28px_rgba(27,36,32,0.35)]">
+      <div className="mb-5 flex items-start justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <InitialsAvatar
+            name={provider.name}
+            className="h-12 w-12 text-lg"
+          />
+          <div>
+            <p className="font-display text-[17px] leading-tight text-ink">
+              {provider.name}
+            </p>
+            <p className="font-mono text-xs uppercase tracking-wide text-ink/50">
+              {provider.title}
+            </p>
           </div>
         </div>
+        <VerificationBadge status={provider.verification} />
+      </div>
 
-        <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-charcoal">
-          <span className="inline-flex items-center gap-1.5">
-            <span className="text-slate-gray">Experience</span>
-            <strong>{provider.experienceYears} yrs</strong>
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <span className="text-slate-gray">Jobs</span>
-            <strong>{provider.jobsCompleted}</strong>
-          </span>
-        </div>
-
-        <div className="flex items-center gap-1.5 text-sm text-slate-gray">
-          <MapPinIcon className="h-4 w-4" />
+      <dl className="grid grid-cols-2 gap-y-3 border-t border-ink/10 pt-4 text-sm">
+        <dt className="text-ink/45">Experience</dt>
+        <dd className="text-right font-medium text-ink">
+          {provider.experienceYears} years
+        </dd>
+        <dt className="text-ink/45">Rating</dt>
+        <dd className="flex items-center justify-end gap-1 font-medium text-ink">
+          {provider.rating.toFixed(1)}{" "}
+          <StarIcon />
+        </dd>
+        <dt className="text-ink/45">Jobs completed</dt>
+        <dd className="text-right font-medium text-ink">
+          {provider.jobsCompleted}
+        </dd>
+        <dt className="text-ink/45">Area</dt>
+        <dd className="truncate text-right font-medium text-ink">
           {provider.serviceArea}
-        </div>
+        </dd>
+      </dl>
 
-        <div className="mt-auto flex items-center gap-2 pt-1">
-          <Link
-            href={`/request/${provider.id}`}
-            className={`btn flex-1 border-0 bg-amber text-warning-content hover:bg-amber/90 ${
-              unavailable ? "btn-disabled" : ""
-            }`}
-            aria-disabled={unavailable}
-          >
-            Request Service
-          </Link>
-          <Link
-            href={`/providers/${provider.id}`}
-            className="btn btn-outline border-ink text-ink hover:bg-ink-tint hover:border-ink"
-          >
-            View Profile
-          </Link>
-        </div>
-
-        {!unavailable && (
-          <Link
-            href={`/providers/${provider.id}`}
-            className="link link-hover link-primary inline-flex items-center gap-1 text-sm font-semibold"
-          >
-            See full profile <ArrowRightIcon className="h-4 w-4" />
-          </Link>
-        )}
+      <div className="mt-5 flex gap-2">
+        <Link
+          href={`/request/${provider.id}`}
+          className={`flex-1 rounded-md bg-seal py-2.5 text-center text-sm font-medium text-paper transition-colors hover:bg-seal-dark ${
+            unavailable ? "pointer-events-none opacity-50" : ""
+          }`}
+          aria-disabled={unavailable}
+        >
+          Request Service
+        </Link>
+        <Link
+          href={`/providers/${provider.id}`}
+          className="rounded-md border border-ink/20 px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-paper"
+        >
+          View
+        </Link>
       </div>
     </div>
+  );
+}
+
+function StarIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-3.5 w-3.5 fill-brass text-brass"
+      aria-hidden="true"
+    >
+      <path d="M12 2.5l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95L12 2.5Z" />
+    </svg>
   );
 }

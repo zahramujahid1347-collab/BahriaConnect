@@ -27,10 +27,10 @@ export default function RequestForm({ provider }: { provider: Provider }) {
   if (submitted) {
     return (
       <div className="mx-auto max-w-2xl">
-        <div className="card bg-white text-center shadow-[0_2px_8px_rgba(30,77,92,0.08)]">
+        <div className="card bg-card text-center shadow-[0_2px_8px_rgba(30,77,92,0.08)]">
           <div className="card-body items-center gap-4 p-8">
             <span className="flex h-16 w-16 items-center justify-center rounded-full bg-success">
-              <CheckIcon className="h-8 w-8 text-white" strokeWidth={2.4} />
+              <CheckIcon className="h-8 w-8 text-paper" strokeWidth={2.4} />
             </span>
             <h2 className="font-display text-2xl font-bold text-ink">
               Request submitted
@@ -76,7 +76,7 @@ export default function RequestForm({ provider }: { provider: Provider }) {
             <div className="mt-2 flex flex-wrap justify-center gap-3">
               <Link
                 href="/dashboard"
-                className="btn border-0 bg-amber font-display font-semibold text-warning-content hover:bg-amber/90"
+                className="btn border-0 bg-seal font-display font-semibold text-paper hover:bg-seal-dark"
               >
                 Track in dashboard
               </Link>
@@ -103,7 +103,7 @@ export default function RequestForm({ provider }: { provider: Provider }) {
 
       <div className="mt-8">
         {step === 1 && (
-          <div className="card bg-white shadow-[0_2px_8px_rgba(30,77,92,0.08)]">
+          <div className="card bg-card shadow-[0_2px_8px_rgba(30,77,92,0.08)]">
             <div className="card-body gap-5 p-6 sm:p-8">
               <div className="flex items-center gap-4">
                 <InitialsAvatar name={provider.name} className="h-14 w-14" />
@@ -138,7 +138,7 @@ export default function RequestForm({ provider }: { provider: Provider }) {
 
               <div className="card-actions justify-end">
                 <button
-                  className="btn border-0 bg-amber font-display font-semibold text-warning-content hover:bg-amber/90"
+                  className="btn border-0 bg-seal font-display font-semibold text-paper hover:bg-seal-dark"
                   onClick={() => setStep(2)}
                 >
                   Continue <ArrowRightIcon className="h-4 w-4" />
@@ -149,7 +149,7 @@ export default function RequestForm({ provider }: { provider: Provider }) {
         )}
 
         {step === 2 && (
-          <div className="card bg-white shadow-[0_2px_8px_rgba(30,77,92,0.08)]">
+          <div className="card bg-card shadow-[0_2px_8px_rgba(30,77,92,0.08)]">
             <div className="card-body gap-5 p-6 sm:p-8">
               <fieldset className="fieldset">
                 <legend className="fieldset-legend font-display font-semibold text-charcoal">
@@ -204,7 +204,7 @@ export default function RequestForm({ provider }: { provider: Provider }) {
                   Back
                 </button>
                 <button
-                  className="btn border-0 bg-amber font-display font-semibold text-warning-content hover:bg-amber/90"
+                  className="btn border-0 bg-seal font-display font-semibold text-paper hover:bg-seal-dark"
                   onClick={() => setStep(3)}
                 >
                   Review request <ArrowRightIcon className="h-4 w-4" />
@@ -215,7 +215,7 @@ export default function RequestForm({ provider }: { provider: Provider }) {
         )}
 
         {step === 3 && (
-          <div className="card bg-white shadow-[0_2px_8px_rgba(30,77,92,0.08)]">
+          <div className="card bg-card shadow-[0_2px_8px_rgba(30,77,92,0.08)]">
             <div className="card-body gap-5 p-6 sm:p-8">
               <h2 className="font-display text-xl font-bold text-ink">
                 Review your request
@@ -255,7 +255,7 @@ export default function RequestForm({ provider }: { provider: Provider }) {
                   Back
                 </button>
                 <button
-                  className="btn border-0 bg-amber font-display font-semibold text-warning-content hover:bg-amber/90"
+                  className="btn border-0 bg-seal font-display font-semibold text-paper hover:bg-seal-dark"
                   onClick={() => setSubmitted(true)}
                 >
                   Submit request

@@ -1,32 +1,32 @@
 import Link from "next/link";
 
 /**
- * The BahriaConnect mark — a house-shield-checkmark motif.
- * Icon in Trust Ink with an Amber checkmark accent, per the brand kit.
+ * The BahriaConnect mark — a shield with a house-check motif.
+ * Seal green fill, brass outline, paper checkmark.
  */
 export function LogoMark({
-  className = "h-9 w-9",
+  className = "h-8 w-8",
   variant = "light",
 }: {
   className?: string;
   variant?: "light" | "dark";
 }) {
-  const houseFill = variant === "light" ? "#F5F1E8" : "#1E4D5C";
+  const check = variant === "light" ? "#F6F3EA" : "#2F5D3A";
   return (
-    <svg viewBox="0 0 48 48" className={className} aria-hidden="true">
+    <svg viewBox="0 0 64 64" className={className} fill="none" aria-hidden="true">
       <path
-        d="M24 3.5 42.5 10v11.8c0 10.3-7.6 18.7-18.5 22.7C13.1 40.5 5.5 32.1 5.5 21.8V10L24 3.5Z"
-        fill="#1E4D5C"
+        d="M32 3 L57 13 V30 C57 45 47 55 32 61 C17 55 7 45 7 30 V13 Z"
+        fill="#2F5D3A"
       />
       <path
-        d="M24 12.5 34.5 20.5H31.5v10.5h-15V20.5h-3L24 12.5Z"
-        fill={houseFill}
+        d="M32 3 L57 13 V30 C57 45 47 55 32 61 C17 55 7 45 7 30 V13 Z"
+        stroke="#B8863B"
+        strokeWidth="1.5"
       />
       <path
-        d="M17.5 23l4.6 4.6 8.4-8.6"
-        fill="none"
-        stroke="#E8B04B"
-        strokeWidth="2.6"
+        d="M20 32.5 L28 40.5 L45 22"
+        stroke={check}
+        strokeWidth="5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -41,12 +41,12 @@ export function Wordmark({
   className?: string;
   variant?: "light" | "dark";
 }) {
-  const color = variant === "light" ? "text-white" : "text-ink";
+  const color = variant === "light" ? "text-paper" : "text-ink";
   return (
     <span
-      className={`font-display text-lg font-extrabold tracking-tight ${color} ${className}`}
+      className={`font-display text-[19px] tracking-tight ${color} ${className}`}
     >
-      Bahria<span className="text-amber">Connect</span>
+      BahriaConnect
     </span>
   );
 }
@@ -64,7 +64,7 @@ export default function Logo({
       className={`inline-flex items-center gap-2.5 ${className}`}
       aria-label="BahriaConnect home"
     >
-      <LogoMark variant={variant} className="h-9 w-9 shrink-0" />
+      <LogoMark variant={variant} className="h-8 w-8 shrink-0" />
       <Wordmark variant={variant} />
     </Link>
   );

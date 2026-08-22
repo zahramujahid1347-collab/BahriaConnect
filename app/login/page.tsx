@@ -69,7 +69,7 @@ export default function LoginPage() {
                 role="radio"
                 aria-checked={selected}
                 onClick={() => setRole(r.id)}
-                className={`flex w-full items-start gap-4 rounded-box border-2 bg-white p-4 text-left transition-all ${
+                className={`flex w-full items-start gap-4 rounded-box border-2 bg-card p-4 text-left transition-all ${
                   selected
                     ? "border-ink shadow-[0_2px_8px_rgba(30,77,92,0.12)]"
                     : "border-fog hover:border-ink/40"
@@ -78,7 +78,7 @@ export default function LoginPage() {
                 <span
                   className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-box ${
                     selected
-                      ? "bg-ink text-white"
+                      ? "bg-ink text-paper"
                       : "bg-ink-tint text-ink"
                   }`}
                 >
@@ -96,11 +96,11 @@ export default function LoginPage() {
                   className={`mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 ${
                     selected
                       ? "border-ink bg-ink"
-                      : "border-fog bg-white"
+                      : "border-fog bg-card"
                   }`}
                 >
                   {selected && (
-                    <CheckIcon className="h-3 w-3 text-white" strokeWidth={3} />
+                    <CheckIcon className="h-3 w-3 text-paper" strokeWidth={3} />
                   )}
                 </span>
               </button>
@@ -108,7 +108,7 @@ export default function LoginPage() {
           })}
         </div>
 
-        <form className="card mt-6 bg-white shadow-[0_2px_8px_rgba(30,77,92,0.08)]" onSubmit={handleSubmit}>
+        <form className="card mt-6 bg-card shadow-[0_2px_8px_rgba(30,77,92,0.08)]" onSubmit={handleSubmit}>
           <div className="card-body gap-4 p-6">
             <fieldset className="fieldset">
               <legend className="fieldset-legend font-display font-semibold text-charcoal">
@@ -138,7 +138,7 @@ export default function LoginPage() {
 
             <button
               type="submit"
-              className="btn w-full border-0 bg-amber font-display font-semibold text-warning-content hover:bg-amber/90"
+              className="btn w-full border-0 bg-seal font-display font-semibold text-paper hover:bg-seal-dark"
             >
               Sign in as {role === "resident" ? "Resident" : "Management"}
             </button>

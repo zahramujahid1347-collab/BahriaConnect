@@ -17,7 +17,7 @@ export default function DashboardPage() {
       <main className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="font-badge text-xs font-bold uppercase tracking-[0.16em] text-ink">
+            <p className="font-mono text-xs font-bold uppercase tracking-[0.16em] text-ink">
               Resident dashboard
             </p>
             <h1 className="mt-2 font-display text-3xl font-extrabold tracking-tight text-ink">
@@ -29,7 +29,7 @@ export default function DashboardPage() {
           </div>
           <Link
             href="/services"
-            className="btn border-0 bg-amber font-display font-semibold text-warning-content hover:bg-amber/90"
+            className="btn border-0 bg-seal font-display font-semibold text-paper hover:bg-seal-dark"
           >
             <SearchIcon className="h-5 w-5" />
             Find a service

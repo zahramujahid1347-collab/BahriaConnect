@@ -25,7 +25,7 @@ export default function ManagementLayout({
 
       <div className="drawer-content flex min-h-screen flex-col bg-cream">
         {/* Top bar */}
-        <header className="sticky top-0 z-40 flex h-16 items-center gap-3 border-b border-fog/60 bg-white px-4 sm:px-6">
+        <header className="sticky top-0 z-40 flex h-16 items-center gap-3 border-b border-fog/60 bg-card px-4 sm:px-6">
           <label
             htmlFor="mgmt-drawer"
             className="btn btn-ghost btn-square drawer-button lg:hidden"
@@ -33,7 +33,7 @@ export default function ManagementLayout({
           >
             <MenuIcon className="h-6 w-6" />
           </label>
-          <span className="font-badge text-xs font-bold uppercase tracking-[0.16em] text-ink">
+          <span className="font-mono text-xs font-bold uppercase tracking-[0.16em] text-ink">
             Management Portal
           </span>
           <div className="ml-auto flex items-center gap-3">
@@ -59,14 +59,14 @@ export default function ManagementLayout({
           aria-label="close sidebar"
           className="drawer-overlay"
         />
-        <aside className="flex min-h-full w-72 flex-col bg-ink text-white">
+        <aside className="flex min-h-full w-72 flex-col bg-ink text-paper">
           <div className="flex items-center gap-2.5 px-5 py-5">
             <LogoMark variant="dark" className="h-8 w-8" />
             <div>
-              <p className="font-display text-base font-extrabold leading-tight">
-                Bahria<span className="text-amber">Connect</span>
+              <p className="font-display text-base font-bold leading-tight text-paper">
+                BahriaConnect
               </p>
-              <p className="text-[11px] text-white/60">Management Portal</p>
+              <p className="text-[11px] text-paper/60">Management Portal</p>
             </div>
           </div>
 
@@ -75,17 +75,17 @@ export default function ManagementLayout({
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="flex items-center gap-3 rounded-box font-display font-semibold text-white/80 hover:bg-white/10 hover:text-white"
+                  className="flex items-center gap-3 rounded-box font-display font-semibold text-paper/80 hover:bg-card/10 hover:text-paper"
                 >
-                  <item.icon className="h-5 w-5 text-amber" />
+                  <item.icon className="h-5 w-5 text-brass-light" />
                   {item.label}
                 </Link>
               </li>
             ))}
           </ul>
 
-          <div className="border-t border-white/10 px-5 py-4">
-            <p className="text-xs text-white/50">
+          <div className="border-t border-paper/10 px-5 py-4">
+            <p className="text-xs text-paper/50">
               Role-based access · Audit logs enabled
             </p>
           </div>

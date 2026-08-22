@@ -1,22 +1,88 @@
 import Link from "next/link";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import SectionHeading, { Eyebrow } from "@/components/section-heading";
-import { ProviderCard } from "@/components/provider-card";
-import { VerifiedBadge, RatingStars } from "@/components/badges";
 import { InitialsAvatar } from "@/components/avatar";
+import { VerifiedBadge } from "@/components/badges";
 import {
-  ServiceIcon,
+  ChevronRightIcon,
   ShieldCheckIcon,
+  UsersIcon,
+  WrenchIcon,
   SearchIcon,
-  ArrowRightIcon,
+  MessageIcon,
+  CalendarIcon,
+  BriefcaseIcon,
   CheckIcon,
+  HammerIcon,
+  WasherIcon,
+  LeafIcon,
+  BoltIcon,
+  SnowflakeIcon,
+  RollerIcon,
+  StarIcon,
 } from "@/components/icons";
-import { categories, providers } from "@/lib/data";
+
+const categoryPills = [
+  { slug: "plumbers", label: "Plumbing", icon: WrenchIcon },
+  { slug: "electricians", label: "Electrical", icon: BoltIcon },
+  { slug: "carpenters", label: "Carpentry", icon: HammerIcon },
+  { slug: "ac-technicians", label: "AC Service", icon: SnowflakeIcon },
+  { slug: "painters", label: "Painting", icon: RollerIcon },
+  { slug: "gardeners", label: "Gardening", icon: LeafIcon },
+];
+
+const categoryGroups = [
+  {
+    name: "Domestic",
+    icon: UsersIcon,
+    items: ["Maids", "Domestic helpers", "Cooks", "Cleaning services"],
+  },
+  {
+    name: "Maintenance",
+    icon: HammerIcon,
+    items: ["Plumbers", "Electricians", "Carpenters", "Painters", "Handymen"],
+  },
+  {
+    name: "Technical",
+    icon: WasherIcon,
+    items: ["AC technicians", "Appliance repair", "Internet & network"],
+  },
+  {
+    name: "Outdoor",
+    icon: LeafIcon,
+    items: ["Gardeners", "Landscaping"],
+  },
+];
+
+const steps = [
+  {
+    icon: SearchIcon,
+    title: "Search & compare",
+    text: "Pick a category, filter by rating, availability, or area, and compare verified profiles.",
+  },
+  {
+    icon: MessageIcon,
+    title: "Describe the job",
+    text: '"Kitchen sink is leaking" — plain language, no formal appointment needed.',
+  },
+  {
+    icon: CalendarIcon,
+    title: "Pick a time & submit",
+    text: "Choose your preferred date and time, then send the request.",
+  },
+  {
+    icon: BriefcaseIcon,
+    title: "Management routes it",
+    text: "The provider is notified and accepts — you get a confirmation.",
+  },
+  {
+    icon: CheckIcon,
+    title: "Service done, rated",
+    text: "Job completed, marked done, and you leave a rating for the next resident.",
+  },
+];
 
 export default function Home() {
-  const featured = [providers[0], providers[2], providers[3]];
-
   return (
     <>
       <Navbar />
@@ -24,245 +90,237 @@ export default function Home() {
         {/* ------------------------------------------------------------ */}
         {/* Hero                                                         */}
         {/* ------------------------------------------------------------ */}
-        <section className="relative overflow-hidden border-b border-fog/60">
-          <div className="bg-dots pointer-events-none absolute inset-0" />
-          <div className="relative mx-auto grid w-full max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:items-center lg:py-24">
+        <section
+          id="top"
+          className="mx-auto w-full max-w-6xl px-5 pb-20 pt-14 sm:px-8 sm:pb-28 sm:pt-20"
+        >
+          <div className="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
-              <Eyebrow>Bahria Town Karachi · Verified Services</Eyebrow>
-              <h1 className="mt-4 font-display text-4xl font-extrabold leading-[1.1] tracking-tight text-ink sm:text-5xl">
+              <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-seal-light/90">
+                Bahria Town Karachi · Verified Services
+              </p>
+              <h1 className="font-display text-[clamp(2.1rem,5vw,3.4rem)] leading-[1.06] tracking-tight text-ink">
                 One Community. Every Service.
               </h1>
-              <p className="mt-5 max-w-lg text-lg leading-relaxed text-slate-gray">
+              <p className="mt-6 max-w-lg text-[17px] leading-relaxed text-ink/70">
                 Connecting Bahria Town residents with verified and reliable
-                home-service providers.
+                home-service providers — every maid, electrician, and technician
+                is registered and checked by community management before you
+                ever see their profile.
               </p>
 
-              <form
-                action="/services"
-                method="get"
-                className="mt-8 flex w-full max-w-lg"
-              >
-                <label className="input join-item flex w-full items-center gap-2 border-fog bg-white">
-                  <SearchIcon className="h-5 w-5 text-slate-gray" />
-                  <input
-                    type="search"
-                    name="q"
-                    placeholder="Try “leaking kitchen sink”"
-                    className="grow"
-                  />
-                </label>
-                <button
-                  type="submit"
-                  className="btn join-item border-0 bg-amber font-display font-semibold text-warning-content hover:bg-amber/90"
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <Link
+                  href="/services"
+                  className="inline-flex items-center gap-2 rounded-md bg-ink px-6 py-3 text-[15px] font-medium text-paper transition-colors hover:bg-ink/85"
                 >
-                  Search
-                </button>
-              </form>
+                  Find a Service
+                  <ChevronRightIcon className="h-4 w-4" />
+                </Link>
+                <Link
+                  href="/management/providers"
+                  className="text-[15px] font-medium text-ink/70 underline decoration-ink/25 underline-offset-4 transition-colors hover:text-ink"
+                >
+                  Register as a Provider
+                </Link>
+              </div>
 
-              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-charcoal">
-                <span className="inline-flex items-center gap-2">
-                  <ShieldCheckIcon className="h-5 w-5 text-verified" />
-                  <strong>Management-vetted</strong> providers
-                </span>
-                <span className="inline-flex items-center gap-2">
-                  <CheckIcon className="h-5 w-5 text-verified" />
-                  Verified badges on every profile
-                </span>
+              <div className="mt-10 flex items-center gap-2 text-sm text-ink/55">
+                <ShieldCheckIcon className="h-4 w-4 shrink-0 text-seal" />
+                Every provider on this page is Management Verified — that&apos;s a
+                real status, not a marketing badge.
               </div>
             </div>
 
-            {/* Signature: the "trusted ID profile" card */}
-            <div className="relative mx-auto w-full max-w-md lg:justify-self-end">
-              <div className="card relative bg-white shadow-[0_16px_40px_rgba(30,77,92,0.14)]">
-                <div className="card-body gap-4 p-6">
-                  <div className="flex items-center gap-4">
-                    <InitialsAvatar name="Ahmed Khan" className="h-16 w-16" textClassName="text-lg" />
+            {/* Signature provider card */}
+            <div className="relative mx-auto w-full max-w-sm lg:mx-0 lg:ml-auto">
+              <div className="absolute -inset-4 hidden rotate-2 rounded-2xl border border-brass/40 sm:block" />
+              <div className="relative -rotate-1 rounded-2xl border border-ink/10 bg-card p-6 shadow-[0_20px_50px_-20px_rgba(27,36,32,0.35)]">
+                <div className="mb-5 flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <InitialsAvatar name="Ahmed Khan" className="h-12 w-12 text-lg" />
                     <div>
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-display text-xl font-bold text-ink">
-                          Ahmed Khan
-                        </h3>
-                        <VerifiedBadge />
-                      </div>
-                      <p className="text-sm text-slate-gray">
-                        Plumber · 7 years experience
+                      <p className="font-display text-[17px] leading-tight text-ink">
+                        Ahmed Khan
                       </p>
-                      <div className="mt-1.5 flex items-center gap-1.5">
-                        <RatingStars rating={4.8} />
-                        <span className="text-sm font-semibold">4.8</span>
-                      </div>
+                      <p className="font-mono text-xs uppercase tracking-wide text-ink/50">
+                        Plumbing
+                      </p>
                     </div>
                   </div>
-
-                  <div className="grid grid-cols-3 gap-2 text-center">
-                    {[
-                      ["640", "jobs done"],
-                      ["98%", "response"],
-                      ["7 yrs", "experience"],
-                    ].map(([v, l]) => (
-                      <div
-                        key={l}
-                        className="rounded-box bg-cream px-2 py-3"
-                      >
-                        <p className="font-display text-lg font-bold text-ink">
-                          {v}
-                        </p>
-                        <p className="text-xs text-slate-gray">{l}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center justify-between rounded-box bg-green-tint px-4 py-3">
-                    <span className="inline-flex items-center gap-2 text-sm font-semibold text-verified">
-                      <CheckIcon className="h-4 w-4" />
-                      Background-checked by management
-                    </span>
-                  </div>
-
-                  <button className="btn w-full border-0 bg-amber font-display font-semibold text-warning-content hover:bg-amber/90">
-                    Request Service
-                  </button>
+                  <VerifiedBadge />
                 </div>
 
-                {/* Verification stamp */}
-                <div className="pointer-events-none absolute -right-4 -top-4 rotate-12 rounded-full border-2 border-verified px-3 py-1.5 font-badge text-[10px] font-bold uppercase tracking-[0.18em] text-verified">
-                  Management
-                  <br />
-                  Verified
-                </div>
+                <dl className="grid grid-cols-2 gap-y-3 border-t border-ink/10 pt-4 text-sm">
+                  <dt className="text-ink/45">Experience</dt>
+                  <dd className="text-right font-medium text-ink">7 years</dd>
+                  <dt className="text-ink/45">Rating</dt>
+                  <dd className="flex items-center justify-end gap-1 font-medium text-ink">
+                    4.8 <StarIcon className="h-3.5 w-3.5 fill-brass text-brass" />
+                  </dd>
+                  <dt className="text-ink/45">Availability</dt>
+                  <dd className="text-right font-medium text-seal-dark">
+                    Available today
+                  </dd>
+                  <dt className="text-ink/45">Service area</dt>
+                  <dd className="text-right font-medium text-ink">Precinct 8</dd>
+                </dl>
+
+                <Link
+                  href="/providers/ahmed-khan"
+                  className="mt-5 block w-full rounded-md bg-seal py-2.5 text-center text-sm font-medium text-paper transition-colors hover:bg-seal-dark"
+                >
+                  Request Service
+                </Link>
               </div>
             </div>
           </div>
         </section>
 
         {/* ------------------------------------------------------------ */}
-        {/* Popular services                                             */}
+        {/* Old way vs With BahriaConnect                                */}
         {/* ------------------------------------------------------------ */}
-        <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
-          <SectionHeading
-            eyebrow="Popular services"
-            title="What do you need done today?"
-            description="Browse trusted providers organised by the work they do."
-          />
-          <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-            {categories.slice(0, 8).map((c) => (
-              <Link
-                key={c.slug}
-                href={`/services/${c.slug}`}
-                className="group flex items-center gap-3 rounded-box border border-fog bg-white p-4 transition-all hover:border-ink/40 hover:shadow-[0_2px_8px_rgba(30,77,92,0.08)]"
-              >
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-box bg-ink-tint text-ink transition-colors group-hover:bg-ink group-hover:text-white">
-                  <ServiceIcon name={c.icon} className="h-6 w-6" />
-                </span>
-                <span className="font-display text-sm font-semibold leading-tight text-charcoal">
-                  {c.name}
-                </span>
-              </Link>
-            ))}
-          </div>
-          <div className="mt-6">
-            <Link
-              href="/services"
-              className="link link-hover link-primary inline-flex items-center gap-1 font-display font-semibold"
-            >
-              View all services <ArrowRightIcon className="h-4 w-4" />
-            </Link>
+        <section className="border-y border-ink/10 bg-sage/60">
+          <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
+            <div className="grid gap-px overflow-hidden rounded-xl border border-ink/10 bg-ink/10 md:grid-cols-2">
+              <div className="bg-paper p-8 sm:p-10">
+                <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-seal-light/90">
+                  The old way
+                </p>
+                <h3 className="mb-4 font-display text-2xl text-ink">
+                  Ask around and hope.
+                </h3>
+                <ul className="space-y-3 text-[15px] text-ink/65">
+                  <li>Scrolling three different Facebook groups for a recommendation</li>
+                  <li>No way to tell if a number someone shared is even still active</li>
+                  <li>No record of who you hired last time, or how it went</li>
+                  <li>Workers relying on word-of-mouth for their next job</li>
+                </ul>
+              </div>
+              <div className="bg-paper p-8 sm:p-10">
+                <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-seal-light/90">
+                  With BahriaConnect
+                </p>
+                <h3 className="mb-4 font-display text-2xl text-ink">
+                  One verified directory.
+                </h3>
+                <ul className="space-y-3 text-[15px] text-ink/65">
+                  <li>Search a category, see who&apos;s verified and available now</li>
+                  <li>Real profiles: experience, ratings, completed jobs, service area</li>
+                  <li>Every request tracked from &ldquo;requested&rdquo; to &ldquo;completed&rdquo;</li>
+                  <li>Management keeps oversight, so accountability doesn&apos;t disappear</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </section>
 
         {/* ------------------------------------------------------------ */}
-        {/* How it works                                                 */}
+        {/* Trust → Convenience → Accountability                         */}
         {/* ------------------------------------------------------------ */}
         <section
           id="how-it-works"
-          className="border-y border-fog/60 bg-white"
+          className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 sm:py-28"
         >
-          <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
-            <SectionHeading
-              eyebrow="How it works"
-              title="Three steps to trusted help"
-            />
-            <ul className="steps steps-vertical mt-10 w-full sm:steps-horizontal">
-              <li className="step step-primary text-left sm:text-center">
-                <div className="max-w-xs">
-                  <p className="font-display font-bold text-ink">Find a provider</p>
-                  <p className="mt-1 text-sm text-slate-gray">
-                    Search a service and compare verified profiles, ratings, and
-                    availability.
-                  </p>
-                </div>
-              </li>
-              <li className="step step-primary text-left sm:text-center">
-                <div className="max-w-xs">
-                  <p className="font-display font-bold text-ink">Request service</p>
-                  <p className="mt-1 text-sm text-slate-gray">
-                    Describe what you need and pick a time. Management confirms
-                    with the provider.
-                  </p>
-                </div>
-              </li>
-              <li className="step step-primary text-left sm:text-center">
-                <div className="max-w-xs">
-                  <p className="font-display font-bold text-ink">Track &amp; review</p>
-                  <p className="mt-1 text-sm text-slate-gray">
-                    Follow your request to completion, then rate the provider for
-                    the community.
-                  </p>
-                </div>
-              </li>
-            </ul>
+          <div className="mb-14 max-w-xl">
+            <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-seal-light/90">
+              Trust → Convenience → Accountability
+            </p>
+            <h2 className="font-display text-3xl tracking-tight text-ink sm:text-4xl">
+              Built to answer three questions at once.
+            </h2>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-3 md:gap-10">
+            <div>
+              <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-full bg-seal/10 text-seal-dark">
+                <UsersIcon className="h-5 w-5" />
+              </div>
+              <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.2em] text-ink/40">
+                Residents
+              </p>
+              <p className="mb-3 font-display text-xl leading-snug text-ink">
+                &ldquo;Who can I trust to do this job?&rdquo;
+              </p>
+              <p className="text-[15px] leading-relaxed text-ink/65">
+                Browse verified providers by category, compare real profiles,
+                and submit a request in minutes.
+              </p>
+            </div>
+            <div className="md:border-l md:border-ink/10 md:pl-10">
+              <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-full bg-seal/10 text-seal-dark">
+                <WrenchIcon className="h-5 w-5" />
+              </div>
+              <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.2em] text-ink/40">
+                Workers
+              </p>
+              <p className="mb-3 font-display text-xl leading-snug text-ink">
+                &ldquo;Where can I find more opportunities?&rdquo;
+              </p>
+              <p className="text-[15px] leading-relaxed text-ink/65">
+                A digital profile registered through management puts your work
+                in front of residents actively looking.
+              </p>
+            </div>
+            <div className="md:border-l md:border-ink/10 md:pl-10">
+              <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-full bg-seal/10 text-seal-dark">
+                <ShieldCheckIcon className="h-5 w-5" />
+              </div>
+              <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.2em] text-ink/40">
+                Management
+              </p>
+              <p className="mb-3 font-display text-xl leading-snug text-ink">
+                &ldquo;Are services being delivered responsibly?&rdquo;
+              </p>
+              <p className="text-[15px] leading-relaxed text-ink/65">
+                Centralized registration, verification, complaint handling, and
+                oversight across the community.
+              </p>
+            </div>
           </div>
         </section>
 
         {/* ------------------------------------------------------------ */}
-        {/* Trust & Safety                                               */}
+        {/* Service categories (dark)                                    */}
         {/* ------------------------------------------------------------ */}
-        <section id="trust" className="relative overflow-hidden bg-ink text-white">
-          <div className="bg-dots-light pointer-events-none absolute inset-0" />
-          <div className="relative mx-auto grid w-full max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:items-center">
-            <div>
-              <Eyebrow>
-                <span className="text-amber">Trust &amp; Safety</span>
-              </Eyebrow>
-              <h2 className="mt-3 font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
-                You should always know who is coming into your home.
-              </h2>
-              <p className="mt-4 max-w-lg text-lg leading-relaxed text-white/70">
-                Every provider on BahriaConnect is registered, background-checked,
-                and approved by Bahria Town management before they can accept a
-                single request.
+        <section id="services" className="bg-seal-dark text-paper">
+          <div className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+            <div className="mb-12 max-w-xl">
+              <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-brass-light">
+                Service categories
               </p>
-              <div className="mt-8 grid gap-3">
-                {[
-                  "Identity & reference checks before approval",
-                  "Standardised profiles with ratings and job history",
-                  "Structured complaints and accountability process",
-                ].map((item) => (
-                  <div key={item} className="flex items-start gap-3">
-                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-verified">
-                      <CheckIcon className="h-4 w-4 text-white" />
-                    </span>
-                    <span className="text-white/85">{item}</span>
-                  </div>
-                ))}
-              </div>
+              <h2 className="font-display text-3xl tracking-tight sm:text-4xl">
+                Whatever the house needs, organized clearly.
+              </h2>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                ["318", "Verified providers"],
-                ["287", "Completed this month"],
-                ["4.7", "Average rating"],
-                ["46", "Active requests"],
-              ].map(([v, l]) => (
-                <div
-                  key={l}
-                  className="rounded-box border border-white/10 bg-white/5 p-6"
+            <div className="mb-14 flex flex-wrap gap-3">
+              {categoryPills.map((c) => (
+                <Link
+                  key={c.slug}
+                  href={`/services/${c.slug}`}
+                  className="flex items-center gap-2.5 rounded-full border border-paper/15 bg-paper/10 py-2 pl-3 pr-4 text-sm transition-colors hover:bg-paper/20"
                 >
-                  <p className="font-display text-3xl font-extrabold text-amber">
-                    {v}
-                  </p>
-                  <p className="mt-1 text-sm text-white/70">{l}</p>
+                  <span className="text-brass-light">
+                    <c.icon className="h-5 w-5" />
+                  </span>
+                  {c.label}
+                </Link>
+              ))}
+            </div>
+
+            <div className="grid gap-px overflow-hidden rounded-xl border border-paper/10 bg-paper/10 sm:grid-cols-2 lg:grid-cols-4">
+              {categoryGroups.map((g) => (
+                <div key={g.name} className="bg-seal-dark p-7">
+                  <div className="mb-4 flex items-center gap-2 text-brass-light">
+                    <g.icon className="h-[18px] w-[18px]" />
+                    <h3 className="font-display text-lg text-paper">{g.name}</h3>
+                  </div>
+                  <ul className="space-y-2 text-[14px] text-paper/60">
+                    {g.items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
                 </div>
               ))}
             </div>
@@ -270,57 +328,198 @@ export default function Home() {
         </section>
 
         {/* ------------------------------------------------------------ */}
-        {/* Featured verified providers                                  */}
+        {/* Requesting a service — 5 steps                               */}
         {/* ------------------------------------------------------------ */}
-        <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
-          <div className="flex items-end justify-between gap-4">
-            <SectionHeading
-              eyebrow="Recommended providers"
-              title="Trusted by your neighbours"
-              description="Verified professionals with a proven record across Bahria Town."
-            />
-            <Link
-              href="/services"
-              className="link link-hover link-primary hidden shrink-0 items-center gap-1 font-display font-semibold sm:inline-flex"
-            >
-              Browse all <ArrowRightIcon className="h-4 w-4" />
-            </Link>
+        <section className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+          <div className="mb-14 max-w-xl">
+            <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-seal-light/90">
+              Requesting a service
+            </p>
+            <h2 className="font-display text-3xl tracking-tight text-ink sm:text-4xl">
+              From &ldquo;I need a plumber&rdquo; to done, in five steps.
+            </h2>
           </div>
-          <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {featured.map((p) => (
-              <ProviderCard key={p.id} provider={p} />
+
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+            {steps.map((s, i) => (
+              <div key={s.title} className="relative">
+                <div className="mb-4 flex items-center gap-2">
+                  <span className="font-mono text-xs font-medium text-brass">
+                    0{i + 1}
+                  </span>
+                  <span className="h-px flex-1 bg-ink/10" />
+                  <span className="text-seal-dark">
+                    <s.icon className="h-[18px] w-[18px]" />
+                  </span>
+                </div>
+                <h3 className="mb-2 font-display text-[17px] text-ink">
+                  {s.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-ink/60">{s.text}</p>
+              </div>
             ))}
           </div>
         </section>
 
         {/* ------------------------------------------------------------ */}
-        {/* CTA band                                                     */}
+        {/* Verification badge                                           */}
         {/* ------------------------------------------------------------ */}
-        <section className="mx-auto w-full max-w-6xl px-4 pb-20 sm:px-6">
-          <div className="relative overflow-hidden rounded-box bg-primary px-6 py-12 text-center text-white sm:px-12">
-            <div className="bg-dots-light pointer-events-none absolute inset-0" />
-            <div className="relative">
-              <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
-                Need help today?
-              </h2>
-              <p className="mx-auto mt-3 max-w-xl text-white/80">
-                Find a verified provider and have your request tracked from
-                start to finish.
+        <section
+          id="verification"
+          className="border-y border-ink/10 bg-sage/60"
+        >
+          <div className="mx-auto grid w-full max-w-6xl items-start gap-14 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[0.8fr_1.2fr]">
+            <div>
+              <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-seal-light/90">
+                The verification badge
               </p>
-              <div className="mt-7 flex flex-wrap justify-center gap-3">
-                <Link
-                  href="/services"
-                  className="btn border-0 bg-amber font-display font-semibold text-warning-content hover:bg-amber/90"
-                >
-                  Request a service
-                </Link>
-                <Link
-                  href="/register"
-                  className="btn btn-outline border-white/40 text-white hover:border-white hover:bg-white/10"
-                >
-                  Join as a resident
-                </Link>
+              <h2 className="mb-5 font-display text-3xl tracking-tight text-ink sm:text-4xl">
+                &ldquo;Management Verified&rdquo; means someone actually checked.
+              </h2>
+              <p className="max-w-md text-[15px] leading-relaxed text-ink/65">
+                Only authorized management staff can change a provider&apos;s
+                status. Residents never see private identity documents — just
+                what&apos;s needed to make a good decision.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <div className="flex items-start gap-4 rounded-lg border border-ink/10 bg-paper p-5">
+                <span className="mt-0.5 shrink-0 whitespace-nowrap rounded-full bg-seal/10 px-2.5 py-1 text-xs font-medium text-seal-dark">
+                  Verified
+                </span>
+                <p className="text-sm leading-relaxed text-ink/60">
+                  Registered and checked through the official management process.
+                </p>
               </div>
+              <div className="flex items-start gap-4 rounded-lg border border-ink/10 bg-paper p-5">
+                <span className="mt-0.5 shrink-0 whitespace-nowrap rounded-full bg-brass/15 px-2.5 py-1 text-xs font-medium text-brass-dark">
+                  Pending Verification
+                </span>
+                <p className="text-sm leading-relaxed text-ink/60">
+                  Application received; management review in progress.
+                </p>
+              </div>
+              <div className="flex items-start gap-4 rounded-lg border border-ink/10 bg-paper p-5">
+                <span className="mt-0.5 shrink-0 whitespace-nowrap rounded-full bg-ink/10 px-2.5 py-1 text-xs font-medium text-ink/60">
+                  Temporarily Unavailable
+                </span>
+                <p className="text-sm leading-relaxed text-ink/60">
+                  Verified, but not accepting new requests right now.
+                </p>
+              </div>
+              <div className="flex items-start gap-4 rounded-lg border border-ink/10 bg-paper p-5">
+                <span className="mt-0.5 shrink-0 whitespace-nowrap rounded-full bg-clay/10 px-2.5 py-1 text-xs font-medium text-clay">
+                  Suspended
+                </span>
+                <p className="text-sm leading-relaxed text-ink/60">
+                  Access restricted by management pending a complaint review.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ------------------------------------------------------------ */}
+        {/* For Management                                               */}
+        {/* ------------------------------------------------------------ */}
+        <section
+          id="management"
+          className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 sm:py-28"
+        >
+          <div className="grid items-center gap-14 lg:grid-cols-2">
+            <div>
+              <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-seal-light/90">
+                For Bahria Town management
+              </p>
+              <h2 className="mb-5 font-display text-3xl tracking-tight text-ink sm:text-4xl">
+                Oversight without the spreadsheets.
+              </h2>
+              <p className="mb-8 max-w-md text-[15px] leading-relaxed text-ink/65">
+                Workers are registered and verified through a dedicated
+                management interface — giving the community one accountable
+                system instead of scattered contact lists.
+              </p>
+              <ul className="space-y-3.5">
+                {[
+                  "Register and verify providers, one central roster",
+                  "Route and monitor every service request",
+                  "Handle complaints with a clear audit trail",
+                  "See demand by category and precinct",
+                ].map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-3 text-[15px] text-ink/75"
+                  >
+                    <CheckIcon className="mt-0.5 h-[17px] w-[17px] shrink-0 text-seal" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/management"
+                className="mt-8 inline-flex items-center gap-2 rounded-md bg-ink px-6 py-3 text-[15px] font-medium text-paper transition-colors hover:bg-ink/85"
+              >
+                Open Management Portal
+                <ChevronRightIcon className="h-4 w-4" />
+              </Link>
+            </div>
+
+            <div className="rounded-2xl border border-ink/10 bg-card p-7 shadow-[0_20px_50px_-25px_rgba(27,36,32,0.3)]">
+              <p className="mb-5 font-mono text-[11px] uppercase tracking-[0.2em] text-ink/40">
+                Management Dashboard — Precinct 8
+              </p>
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  ["146", "Registered providers"],
+                  ["5", "Pending verification"],
+                  ["23", "Active requests"],
+                  ["1", "Open complaints"],
+                ].map(([value, label]) => (
+                  <div
+                    key={label}
+                    className="rounded-lg border border-ink/10 p-4"
+                  >
+                    <p className="font-display text-2xl text-ink">{value}</p>
+                    <p className="mt-1 text-xs text-ink/50">{label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ------------------------------------------------------------ */}
+        {/* Get started                                                  */}
+        {/* ------------------------------------------------------------ */}
+        <section id="get-started" className="border-y border-ink/10 bg-sage/60">
+          <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1.2fr_0.8fr]">
+            <div>
+              <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-seal-light/90">
+                Get started
+              </p>
+              <h2 className="mb-4 font-display text-3xl tracking-tight text-ink sm:text-4xl">
+                Find trusted help in your community.
+              </h2>
+              <p className="max-w-lg text-[15px] leading-relaxed text-ink/65">
+                Browse verified providers, request a service, and track it from
+                request to completion.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+              <Link
+                href="/services"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-seal px-4 py-2 text-sm font-medium text-paper transition-colors hover:bg-seal-dark"
+              >
+                Browse services
+                <ChevronRightIcon className="h-4 w-4" />
+              </Link>
+              <Link
+                href="/register"
+                className="inline-flex items-center justify-center gap-2 rounded-md border border-ink/20 px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-paper"
+              >
+                Join as a resident
+              </Link>
             </div>
           </div>
         </section>

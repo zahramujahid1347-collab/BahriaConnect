@@ -4,78 +4,95 @@ import { GlobeIcon, MailIcon, PhoneIcon } from "./icons";
 
 export default function Footer() {
   return (
-    <footer className="bg-ink text-white">
-      <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
-        <div className="footer footer-vertical gap-10 sm:footer-horizontal">
-          <aside className="max-w-xs">
-            <div className="flex items-center gap-2.5">
-              <LogoMark variant="dark" className="h-9 w-9" />
-              <span className="font-display text-lg font-extrabold tracking-tight">
-                Bahria<span className="text-amber">Connect</span>
-              </span>
-            </div>
-            <p className="mt-3 text-sm leading-relaxed text-white/70">
-              One Community. Every Service. Every provider is
-              registered, background-checked, and approved by Bahria Town
-              management.
-            </p>
-          </aside>
-
-          <nav aria-label="Services">
-            <h6 className="footer-title text-white/90">Services</h6>
-            <Link className="link link-hover text-white/70" href="/services/plumbers">
-              Plumbing
-            </Link>
-            <Link className="link link-hover text-white/70" href="/services/electricians">
-              Electrical
-            </Link>
-            <Link className="link link-hover text-white/70" href="/services/ac-technicians">
-              AC &amp; Cooling
-            </Link>
-            <Link className="link link-hover text-white/70" href="/services/maids">
-              Maids &amp; Domestic Help
-            </Link>
-            <Link className="link link-hover text-white/70" href="/services">
-              All services
-            </Link>
-          </nav>
-
-          <nav aria-label="Platform">
-            <h6 className="footer-title text-white/90">Platform</h6>
-            <Link className="link link-hover text-white/70" href="/#how-it-works">
-              How it works
-            </Link>
-            <Link className="link link-hover text-white/70" href="/#trust">
-              Trust &amp; Safety
-            </Link>
-            <Link className="link link-hover text-white/70" href="/dashboard">
-              Resident dashboard
-            </Link>
-            <Link className="link link-hover text-white/70" href="/management">
-              Management portal
-            </Link>
-          </nav>
-
-          <nav aria-label="Contact">
-            <h6 className="footer-title text-white/90">Contact</h6>
-            <span className="inline-flex items-center gap-2 text-white/70">
-              <PhoneIcon className="h-4 w-4 text-amber" /> +92 21 000 0000
-            </span>
-            <span className="inline-flex items-center gap-2 text-white/70">
-              <MailIcon className="h-4 w-4 text-amber" /> hello@bahriaconnect.com
-            </span>
-            <span className="inline-flex items-center gap-2 text-white/70">
-              <GlobeIcon className="h-4 w-4 text-amber" /> Bahria Town Karachi
-            </span>
-          </nav>
-        </div>
-
-        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-sm text-white/50 sm:flex-row">
-          <p>© 2026 BahriaConnect. A verified home-services platform.</p>
-          <p className="font-badge text-[11px] tracking-wide text-white/50">
-            TRUSTED PEOPLE. SAFER HOMES.
+    <footer className="bg-ink text-paper/70">
+      <div className="mx-auto grid w-full max-w-6xl gap-10 px-5 py-14 sm:grid-cols-2 sm:px-8 lg:grid-cols-4">
+        <div>
+          <div className="mb-4 flex items-center gap-2.5">
+            <LogoMark variant="dark" className="h-7 w-7" />
+            <span className="font-display text-lg text-paper">BahriaConnect</span>
+          </div>
+          <p className="max-w-xs text-sm leading-relaxed">
+            A verified home-services directory for Bahria Town Karachi.
+            Community management, not a random recommendation.
           </p>
         </div>
+
+        <div>
+          <p className="font-mono text-xs uppercase tracking-widest text-paper/40 mb-4">
+            Services
+          </p>
+          <ul className="space-y-2.5 text-sm">
+            <li>
+              <Link href="/services/plumbers" className="transition-colors hover:text-paper">
+                Plumbing
+              </Link>
+            </li>
+            <li>
+              <Link href="/services/electricians" className="transition-colors hover:text-paper">
+                Electrical
+              </Link>
+            </li>
+            <li>
+              <Link href="/services/maids" className="transition-colors hover:text-paper">
+                Domestic Help
+              </Link>
+            </li>
+            <li>
+              <Link href="/services" className="transition-colors hover:text-paper">
+                All services
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <p className="font-mono text-xs uppercase tracking-widest text-paper/40 mb-4">
+            Platform
+          </p>
+          <ul className="space-y-2.5 text-sm">
+            <li>
+              <Link href="/#how-it-works" className="transition-colors hover:text-paper">
+                How it works
+              </Link>
+            </li>
+            <li>
+              <Link href="/#verification" className="transition-colors hover:text-paper">
+                Verification
+              </Link>
+            </li>
+            <li>
+              <Link href="/management" className="transition-colors hover:text-paper">
+                For Management
+              </Link>
+            </li>
+            <li>
+              <Link href="/login" className="transition-colors hover:text-paper">
+                Sign in
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <p className="font-mono text-xs uppercase tracking-widest text-paper/40 mb-4">
+            Contact
+          </p>
+          <ul className="space-y-2.5 text-sm">
+            <li className="inline-flex items-center gap-2">
+              <PhoneIcon className="h-4 w-4 text-brass-light" /> +92 21 000 0000
+            </li>
+            <li className="inline-flex items-center gap-2">
+              <MailIcon className="h-4 w-4 text-brass-light" /> hello@bahriaconnect.com
+            </li>
+            <li className="inline-flex items-center gap-2">
+              <GlobeIcon className="h-4 w-4 text-brass-light" /> Bahria Town Karachi
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="border-t border-paper/10 py-6 text-center text-xs text-paper/40">
+        BahriaConnect · Bahria Town Karachi · A community services pilot
       </div>
     </footer>
   );
