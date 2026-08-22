@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-5 py-14 sm:grid-cols-2 sm:px-8 lg:grid-cols-4">
         <div>
           <div className="mb-4 flex items-center gap-2.5">
-            <LogoMark variant="dark" className="h-7 w-7" />
+            <LogoMark className="h-7 w-7" />
             <span className="font-display text-lg text-paper">BahriaConnect</span>
           </div>
           <p className="max-w-xs text-sm leading-relaxed">

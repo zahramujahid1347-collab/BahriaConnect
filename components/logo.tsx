@@ -1,17 +1,14 @@
 import Link from "next/link";
 
 /**
- * The BahriaConnect mark — a shield with a house-check motif.
+ * The BahriaConnect mark — a shield with a checkmark.
  * Seal green fill, brass outline, paper checkmark.
  */
 export function LogoMark({
   className = "h-8 w-8",
-  variant = "light",
 }: {
   className?: string;
-  variant?: "light" | "dark";
 }) {
-  const check = variant === "light" ? "#F6F3EA" : "#2F5D3A";
   return (
     <svg viewBox="0 0 64 64" className={className} fill="none" aria-hidden="true">
       <path
@@ -25,7 +22,7 @@ export function LogoMark({
       />
       <path
         d="M20 32.5 L28 40.5 L45 22"
-        stroke={check}
+        stroke="#F6F3EA"
         strokeWidth="5"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -52,10 +49,8 @@ export function Wordmark({
 }
 
 export default function Logo({
-  variant = "dark",
   className = "",
 }: {
-  variant?: "light" | "dark";
   className?: string;
 }) {
   return (
@@ -64,8 +59,8 @@ export default function Logo({
       className={`inline-flex items-center gap-2.5 ${className}`}
       aria-label="BahriaConnect home"
     >
-      <LogoMark variant={variant} className="h-8 w-8 shrink-0" />
-      <Wordmark variant={variant} />
+      <LogoMark className="h-8 w-8 shrink-0" />
+      <Wordmark />
     </Link>
   );
 }

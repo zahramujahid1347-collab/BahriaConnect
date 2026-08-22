@@ -61,7 +61,7 @@ export default function ManagementLayout({
         />
         <aside className="flex min-h-full w-72 flex-col bg-ink text-paper">
           <div className="flex items-center gap-2.5 px-5 py-5">
-            <LogoMark variant="dark" className="h-8 w-8" />
+            <LogoMark className="h-8 w-8" />
             <div>
               <p className="font-display text-base font-bold leading-tight text-paper">
                 BahriaConnect
