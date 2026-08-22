@@ -3,6 +3,7 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { InitialsAvatar } from "@/components/avatar";
 import { VerifiedBadge } from "@/components/badges";
+import Reveal from "@/components/reveal";
 import {
   ChevronRightIcon,
   ShieldCheckIcon,
@@ -182,7 +183,7 @@ export default function Home() {
         {/* ------------------------------------------------------------ */}
         <section className="border-y border-ink/10 bg-sage/60">
           <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-            <div className="grid gap-px overflow-hidden rounded-xl border border-ink/10 bg-ink/10 md:grid-cols-2">
+            <Reveal className="grid gap-px overflow-hidden rounded-xl border border-ink/10 bg-ink/10 md:grid-cols-2">
               <div className="bg-paper p-8 sm:p-10">
                 <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-seal-light/90">
                   The old way
@@ -211,7 +212,7 @@ export default function Home() {
                   <li>Management keeps oversight, so accountability doesn&apos;t disappear</li>
                 </ul>
               </div>
-            </div>
+            </Reveal>
           </div>
         </section>
 
@@ -231,7 +232,7 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-3 md:gap-10">
+          <Reveal className="grid gap-8 md:grid-cols-3 md:gap-10">
             <div>
               <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-full bg-seal/10 text-seal-dark">
                 <UsersIcon className="h-5 w-5" />
@@ -277,14 +278,14 @@ export default function Home() {
                 oversight across the community.
               </p>
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* ------------------------------------------------------------ */}
         {/* Service categories (dark)                                    */}
         {/* ------------------------------------------------------------ */}
         <section id="services" className="bg-seal-dark text-paper">
-          <div className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+          <Reveal className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
             <div className="mb-12 max-w-xl">
               <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-brass-light">
                 Service categories
@@ -324,7 +325,7 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* ------------------------------------------------------------ */}
@@ -342,7 +343,7 @@ export default function Home() {
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
             {steps.map((s, i) => (
-              <div key={s.title} className="relative">
+              <Reveal key={s.title} className="relative" delay={i * 80}>
                 <div className="mb-4 flex items-center gap-2">
                   <span className="font-mono text-xs font-medium text-brass">
                     0{i + 1}
@@ -356,7 +357,7 @@ export default function Home() {
                   {s.title}
                 </h3>
                 <p className="text-sm leading-relaxed text-ink/60">{s.text}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </section>
@@ -368,7 +369,7 @@ export default function Home() {
           id="verification"
           className="border-y border-ink/10 bg-sage/60"
         >
-          <div className="mx-auto grid w-full max-w-6xl items-start gap-14 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[0.8fr_1.2fr]">
+          <Reveal className="mx-auto grid w-full max-w-6xl items-start gap-14 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[0.8fr_1.2fr]">
             <div>
               <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-seal-light/90">
                 The verification badge
@@ -417,7 +418,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* ------------------------------------------------------------ */}
@@ -427,7 +428,7 @@ export default function Home() {
           id="management"
           className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 sm:py-28"
         >
-          <div className="grid items-center gap-14 lg:grid-cols-2">
+          <Reveal className="grid items-center gap-14 lg:grid-cols-2">
             <div>
               <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-seal-light/90">
                 For Bahria Town management
@@ -486,14 +487,14 @@ export default function Home() {
                 ))}
               </div>
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* ------------------------------------------------------------ */}
         {/* Get started                                                  */}
         {/* ------------------------------------------------------------ */}
         <section id="get-started" className="border-y border-ink/10 bg-sage/60">
-          <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1.2fr_0.8fr]">
+          <Reveal className="mx-auto grid w-full max-w-6xl items-center gap-10 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1.2fr_0.8fr]">
             <div>
               <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-seal-light/90">
                 Get started
@@ -521,7 +522,7 @@ export default function Home() {
                 Join as a resident
               </Link>
             </div>
-          </div>
+          </Reveal>
         </section>
       </main>
       <Footer />
