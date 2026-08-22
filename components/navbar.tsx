@@ -49,7 +49,7 @@ export default function Navbar() {
             Sign in
           </Link>
           <Link
-            href="/services"
+            href="/register"
             className="rounded-md bg-seal px-4 py-2 text-sm font-medium text-paper transition-colors hover:bg-seal-dark"
           >
             Get Started
@@ -108,13 +108,6 @@ export default function Navbar() {
                   </Link>
                   <Link
                     href="/register"
-                    onClick={() => setOpen(false)}
-                    className="btn btn-ghost w-full font-medium text-ink/70"
-                  >
-                    Create a resident account
-                  </Link>
-                  <Link
-                    href="/services"
                     onClick={() => setOpen(false)}
                     className="btn w-full border-0 bg-seal font-medium text-paper hover:bg-seal-dark"
                   >
