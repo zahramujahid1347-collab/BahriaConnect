@@ -4,7 +4,6 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import ResidentDashboard from "@/components/resident-dashboard";
 import { SearchIcon } from "@/components/icons";
-import { favorites, notifications, requests } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Resident dashboard",
@@ -21,7 +20,7 @@ export default function DashboardPage() {
               Resident dashboard
             </p>
             <h1 className="mt-2 font-display text-3xl font-extrabold tracking-tight text-ink">
-              Welcome back, Zahra
+              Welcome back
             </h1>
             <p className="mt-1 text-slate-gray">
               Here’s what’s happening with your home services.
@@ -37,11 +36,7 @@ export default function DashboardPage() {
         </div>
 
         <div className="mt-8">
-          <ResidentDashboard
-            requests={requests}
-            favorites={favorites}
-            notifications={notifications}
-          />
+          <ResidentDashboard requests={[]} favorites={[]} notifications={[]} />
         </div>
       </main>
       <Footer />

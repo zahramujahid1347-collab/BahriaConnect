@@ -1,8 +1,6 @@
 import Link from "next/link";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import { InitialsAvatar } from "@/components/avatar";
-import { VerifiedBadge } from "@/components/badges";
 import Reveal from "@/components/reveal";
 import {
   ChevronRightIcon,
@@ -20,7 +18,6 @@ import {
   BoltIcon,
   SnowflakeIcon,
   RollerIcon,
-  StarIcon,
 } from "@/components/icons";
 
 const categoryPills = [
@@ -95,7 +92,7 @@ export default function Home() {
           id="top"
           className="mx-auto w-full max-w-6xl px-5 pb-20 pt-14 sm:px-8 sm:pb-28 sm:pt-20"
         >
-          <div className="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="max-w-2xl">
             <div>
               <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-seal-light/90">
                 Bahria Town Karachi · Verified Services
@@ -133,48 +130,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Signature provider card */}
-            <div className="relative mx-auto w-full max-w-sm lg:mx-0 lg:ml-auto">
-              <div className="absolute -inset-4 hidden rotate-2 rounded-2xl border border-brass/40 sm:block" />
-              <div className="relative -rotate-1 rounded-2xl border border-ink/10 bg-card p-6 shadow-[0_20px_50px_-20px_rgba(27,36,32,0.35)]">
-                <div className="mb-5 flex items-start justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <InitialsAvatar name="Ahmed Khan" className="h-12 w-12 text-lg" />
-                    <div>
-                      <p className="font-display text-[17px] leading-tight text-ink">
-                        Ahmed Khan
-                      </p>
-                      <p className="font-mono text-xs uppercase tracking-wide text-ink/50">
-                        Plumbing
-                      </p>
-                    </div>
-                  </div>
-                  <VerifiedBadge />
-                </div>
-
-                <dl className="grid grid-cols-2 gap-y-3 border-t border-ink/10 pt-4 text-sm">
-                  <dt className="text-ink/45">Experience</dt>
-                  <dd className="text-right font-medium text-ink">7 years</dd>
-                  <dt className="text-ink/45">Rating</dt>
-                  <dd className="flex items-center justify-end gap-1 font-medium text-ink">
-                    4.8 <StarIcon className="h-3.5 w-3.5 fill-brass text-brass" />
-                  </dd>
-                  <dt className="text-ink/45">Availability</dt>
-                  <dd className="text-right font-medium text-seal-dark">
-                    Available today
-                  </dd>
-                  <dt className="text-ink/45">Service area</dt>
-                  <dd className="text-right font-medium text-ink">Precinct 8</dd>
-                </dl>
-
-                <Link
-                  href="/providers/ahmed-khan"
-                  className="mt-5 block w-full rounded-md bg-seal py-2.5 text-center text-sm font-medium text-paper transition-colors hover:bg-seal-dark"
-                >
-                  Request Service
-                </Link>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -428,7 +383,7 @@ export default function Home() {
           id="management"
           className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 sm:py-28"
         >
-          <Reveal className="grid items-center gap-14 lg:grid-cols-2">
+          <Reveal className="max-w-2xl">
             <div>
               <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-seal-light/90">
                 For Bahria Town management
@@ -466,27 +421,6 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className="rounded-2xl border border-ink/10 bg-card p-7 shadow-[0_20px_50px_-25px_rgba(27,36,32,0.3)]">
-              <p className="mb-5 font-mono text-[11px] uppercase tracking-[0.2em] text-ink/40">
-                Management Dashboard — Precinct 8
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  ["146", "Registered providers"],
-                  ["5", "Pending verification"],
-                  ["23", "Active requests"],
-                  ["1", "Open complaints"],
-                ].map(([value, label]) => (
-                  <div
-                    key={label}
-                    className="rounded-lg border border-ink/10 p-4"
-                  >
-                    <p className="font-display text-2xl text-ink">{value}</p>
-                    <p className="mt-1 text-xs text-ink/50">{label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
           </Reveal>
         </section>
 

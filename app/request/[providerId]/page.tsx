@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import RequestForm from "@/components/request-form";
-import { getProvider } from "@/lib/data";
+import { getProviderById } from "@/lib/db/queries";
 
 export const metadata: Metadata = {
   title: "Request service",
@@ -15,7 +15,7 @@ export default async function RequestPage({
   params: Promise<{ providerId: string }>;
 }) {
   const { providerId } = await params;
-  const provider = getProvider(providerId);
+  const provider = await getProviderById(providerId);
 
   if (!provider) {
     return (
