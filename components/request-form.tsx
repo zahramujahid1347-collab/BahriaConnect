@@ -6,6 +6,7 @@ import type { Provider } from "@/lib/types";
 import { InitialsAvatar } from "./avatar";
 import { VerifiedBadge } from "./badges";
 import { CheckIcon, ArrowRightIcon } from "./icons";
+import { residentPrecincts } from "@/lib/data";
 
 const times = [
   "8:00 – 10:00 AM",
@@ -188,9 +189,9 @@ export default function RequestForm({ provider }: { provider: Provider }) {
                   onChange={(e) => setPrecinct(e.target.value)}
                 >
                   <option value="">Select precinct…</option>
-                  {[...Array(15)].map((_, i) => (
-                    <option key={i} value={`Precinct ${i + 1}`}>
-                      Precinct {i + 1}
+                  {residentPrecincts.map((p) => (
+                    <option key={p} value={p}>
+                      {p}
                     </option>
                   ))}
                 </select>

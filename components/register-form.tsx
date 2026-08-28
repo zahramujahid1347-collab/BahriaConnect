@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { CheckIcon, HomeIcon, ShieldCheckIcon } from "./icons";
+import { residentPrecincts } from "@/lib/data";
 
 type Role = "resident" | "management";
 
@@ -108,15 +109,9 @@ export default function RegisterForm({ initialRole }: { initialRole: Role }) {
                   Precinct
                 </legend>
                 <select className="select w-full border-ink/15 bg-cream">
-                  <option>Precinct 1</option>
-                  <option>Precinct 2</option>
-                  <option>Precinct 3</option>
-                  <option>Precinct 4</option>
-                  <option>Precinct 5</option>
-                  <option>Precinct 6</option>
-                  <option>Precinct 7</option>
-                  <option>Precinct 8</option>
-                  <option>Precinct 9</option>
+                  {residentPrecincts.map((p) => (
+                    <option key={p}>{p}</option>
+                  ))}
                 </select>
               </fieldset>
               <fieldset className="fieldset">

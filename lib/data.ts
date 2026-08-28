@@ -495,3 +495,21 @@ export const categoryGroups = [
   "Technical",
   "Outdoor",
 ] as const;
+
+export const residentPrecincts = [
+  "Precinct 1",
+  "Precinct 2",
+  "Precinct 4",
+  "Precinct 6",
+  "Precinct 8",
+  "Precinct 10",
+  "Precinct 11 A",
+  "Precinct 11 B",
+  "Precinct 12 (Ali Block)",
+  "Precinct 15",
+  "Precinct 19",
+  "Precinct 27",
+  "Precinct 31",
+  "Precinct 35 A",
+  "Precinct 35 B",
+];
