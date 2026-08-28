@@ -51,6 +51,8 @@ export const complaints = pgTable("complaints", {
   reportedBy: text("reported_by").notNull(),
   date: text("date").notNull(),
   status: text("status").notNull().default("Open"),
+  reply: text("reply").notNull().default(""),
+  replyDate: text("reply_date").notNull().default(""),
 });
 
 export const reviews = pgTable("reviews", {

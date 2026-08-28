@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { Complaint } from "@/lib/types";
 import { FlagIcon } from "./icons";
-import { setComplaintStatus } from "@/lib/actions";
+import { setComplaintStatus, replyToComplaint } from "@/lib/actions";
 
 const statusStyles: Record<Complaint["status"], string> = {
   Open: "badge-error text-error-content",
@@ -20,15 +20,33 @@ export default function ComplaintManagement({
   const [overrides, setOverrides] = useState<
     Record<string, Complaint["status"]>
   >({});
+  const [replies, setReplies] = useState<
+    Record<string, { reply: string; replyDate: string }>
+  >({});
+  const [replyTo, setReplyTo] = useState<string | null>(null);
+  const [replyText, setReplyText] = useState("");
 
   const rows = complaints.map((c) => ({
     ...c,
     status: overrides[c.id] ?? c.status,
+    reply: replies[c.id]?.reply ?? c.reply,
+    replyDate: replies[c.id]?.replyDate ?? c.replyDate,
   }));
 
   async function setStatus(id: string, next: Complaint["status"]) {
     setOverrides((o) => ({ ...o, [id]: next }));
     await setComplaintStatus(id, next);
+  }
+
+  async function handleReply(id: string) {
+    const text = replyText.trim();
+    if (!text) return;
+    const d = new Date();
+    const date = `${d.getDate()} ${d.toLocaleString("en", { month: "short" })} ${d.getFullYear()}`;
+    setReplies((r) => ({ ...r, [id]: { reply: text, replyDate: date } }));
+    setReplyText("");
+    setReplyTo(null);
+    await replyToComplaint(id, text);
   }
 
   return (
@@ -66,7 +84,58 @@ export default function ComplaintManagement({
               {c.details}
             </p>
 
+            {c.reply && (
+              <div className="rounded-box border border-seal/30 bg-green-tint p-3">
+                <p className="text-xs font-semibold uppercase tracking-wide text-seal-dark">
+                  Management reply{c.replyDate ? ` · ${c.replyDate}` : ""}
+                </p>
+                <p className="mt-1 text-sm leading-relaxed text-charcoal">
+                  {c.reply}
+                </p>
+              </div>
+            )}
+
+            {replyTo === c.id && (
+              <div className="rounded-box border border-fog bg-cream p-3">
+                <textarea
+                  className="textarea w-full border-ink/15 bg-card"
+                  rows={2}
+                  placeholder="Write a reply to the resident…"
+                  value={replyText}
+                  onChange={(e) => setReplyText(e.target.value)}
+                />
+                <div className="mt-2 flex justify-end gap-2">
+                  <button
+                    className="btn btn-sm btn-ghost font-display font-semibold text-slate-gray"
+                    onClick={() => {
+                      setReplyTo(null);
+                      setReplyText("");
+                    }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="btn btn-sm border-0 bg-seal font-display font-semibold text-paper hover:bg-seal-dark"
+                    onClick={() => handleReply(c.id)}
+                  >
+                    Send reply
+                  </button>
+                </div>
+              </div>
+            )}
+
             <div className="card-actions justify-end">
+              {replyTo !== c.id && (
+                <button
+                  className="btn btn-sm btn-outline border-ink/20 text-ink hover:bg-paper"
+                  onClick={() => {
+                    setReplyTo(c.id);
+                    setReplyText("");
+                  }}
+                >
+                  Reply
+                </button>
+              )}
               {c.status === "Open" && (
                 <button
                   className="btn btn-sm border-0 bg-seal font-display font-semibold text-paper hover:bg-seal-dark"
@@ -100,6 +169,9 @@ export default function ComplaintManagement({
         <div className="rounded-box border border-dashed border-fog bg-card p-12 text-center">
           <p className="font-display text-lg font-bold text-ink">
             No complaints to review.
+          </p>
+          <p className="mt-1 text-sm text-slate-gray">
+            Complaints filed by residents will appear here.
           </p>
         </div>
       )}

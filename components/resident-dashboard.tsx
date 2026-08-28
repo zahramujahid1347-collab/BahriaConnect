@@ -2,17 +2,24 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import type { Notification, Provider, ServiceRequest } from "@/lib/types";
+import type {
+  Notification,
+  Provider,
+  ServiceRequest,
+  Complaint,
+} from "@/lib/types";
 import { StatusBadge, RatingStars } from "./badges";
 import { InitialsAvatar } from "./avatar";
+import { fileComplaint } from "@/lib/actions";
 import {
   BellIcon,
   ArrowRightIcon,
   CheckIcon,
   ClockIcon,
+  FlagIcon,
 } from "./icons";
 
-type Tab = "active" | "previous" | "favorites" | "notifications";
+type Tab = "active" | "previous" | "favorites" | "notifications" | "complaints";
 
 const statusOrder: Record<string, number> = {
   Requested: 0,
@@ -35,10 +42,12 @@ export default function ResidentDashboard({
   requests,
   favorites,
   notifications,
+  complaints,
 }: {
   requests: ServiceRequest[];
   favorites: Provider[];
   notifications: Notification[];
+  complaints: Complaint[];
 }) {
   const [tab, setTab] = useState<Tab>("active");
 
@@ -54,6 +63,7 @@ export default function ResidentDashboard({
       label: "Notifications",
       count: notifications.filter((n) => n.unread).length,
     },
+    { id: "complaints", label: "Complaints", count: complaints.length },
   ];
 
   return (
@@ -166,6 +176,201 @@ export default function ResidentDashboard({
                     </span>
                   </div>
                   <p className="mt-0.5 text-sm text-slate-gray">{n.detail}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {tab === "complaints" && (
+          <ComplaintsPanel complaints={complaints} />
+        )}
+      </div>
+    </div>
+  );
+}
+
+function ComplaintsPanel({ complaints }: { complaints: Complaint[] }) {
+  const [list, setList] = useState<Complaint[]>(complaints);
+  const [providerName, setProviderName] = useState("");
+  const [reason, setReason] = useState("Poor service");
+  const [details, setDetails] = useState("");
+  const [notice, setNotice] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  const reasons = [
+    "Poor service",
+    "No-show",
+    "Misconduct",
+    "Incorrect service",
+    "Repeated cancellations",
+    "Other",
+  ];
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!details.trim()) return;
+    setSaving(true);
+    try {
+      const d = new Date();
+      const date = `${d.getDate()} ${d.toLocaleString("en", { month: "short" })} ${d.getFullYear()}`;
+      const newComplaint: Complaint = {
+        id: `C-${Date.now()}`,
+        providerId: "",
+        providerName: providerName.trim() || "General",
+        reason,
+        details: details.trim(),
+        reportedBy: "Resident",
+        date,
+        status: "Open",
+      };
+      setList((l) => [newComplaint, ...l]);
+      setProviderName("");
+      setDetails("");
+      setReason("Poor service");
+      setNotice("Complaint filed — management will review it.");
+      await fileComplaint({ providerName, reason, details });
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  const statusStyles: Record<Complaint["status"], string> = {
+    Open: "bg-clay/10 text-clay",
+    "Under Review": "bg-brass/15 text-brass-dark",
+    Resolved: "bg-seal/10 text-seal-dark",
+    Dismissed: "bg-ink/10 text-ink/60",
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* File a complaint */}
+      <form
+        onSubmit={handleSubmit}
+        className="card bg-card shadow-[0_2px_8px_rgba(30,77,92,0.08)]"
+      >
+        <div className="card-body gap-4 p-6">
+          <div className="flex items-center gap-2">
+            <FlagIcon className="h-5 w-5 text-clay" />
+            <h2 className="font-display text-lg font-bold text-ink">
+              File a complaint
+            </h2>
+          </div>
+          <p className="text-sm text-slate-gray">
+            Report poor service, a no-show, misconduct, or any other issue.
+          </p>
+
+          {notice && (
+            <div className="flex items-center gap-2 rounded-lg bg-green-tint p-3 text-sm text-seal-dark">
+              <CheckIcon className="h-4 w-4" />
+              {notice}
+            </div>
+          )}
+
+          <fieldset className="fieldset">
+            <legend className="fieldset-legend font-display font-semibold text-ink">
+              Provider name (optional)
+            </legend>
+            <input
+              type="text"
+              className="input w-full border-ink/15 bg-cream"
+              placeholder="e.g. Ahmed Khan"
+              value={providerName}
+              onChange={(e) => setProviderName(e.target.value)}
+            />
+          </fieldset>
+
+          <fieldset className="fieldset">
+            <legend className="fieldset-legend font-display font-semibold text-ink">
+              Reason
+            </legend>
+            <select
+              className="select w-full border-ink/15 bg-cream"
+              value={reason}
+              onChange={(e) => setReason(e.target.value)}
+            >
+              {reasons.map((r) => (
+                <option key={r}>{r}</option>
+              ))}
+            </select>
+          </fieldset>
+
+          <fieldset className="fieldset">
+            <legend className="fieldset-legend font-display font-semibold text-ink">
+              Details
+            </legend>
+            <textarea
+              className="textarea w-full border-ink/15 bg-cream"
+              rows={3}
+              placeholder="Describe what happened…"
+              value={details}
+              onChange={(e) => setDetails(e.target.value)}
+            />
+          </fieldset>
+
+          <button
+            type="submit"
+            disabled={saving}
+            className="btn w-full border-0 bg-seal font-display font-semibold text-paper hover:bg-seal-dark"
+          >
+            {saving ? "Submitting…" : "Submit complaint"}
+          </button>
+        </div>
+      </form>
+
+      {/* My complaints */}
+      <div>
+        <h2 className="font-display text-lg font-bold text-ink">
+          My complaints
+        </h2>
+        {list.length === 0 ? (
+          <div className="mt-3 rounded-box border border-dashed border-fog bg-card p-10 text-center">
+            <p className="font-display font-bold text-ink">
+              No complaints filed yet.
+            </p>
+            <p className="mt-1 text-sm text-slate-gray">
+              Issues you report will appear here, along with management replies.
+            </p>
+          </div>
+        ) : (
+          <ul className="mt-3 space-y-4">
+            {list.map((c) => (
+              <li
+                key={c.id}
+                className="card bg-card shadow-[0_2px_8px_rgba(30,77,92,0.06)]"
+              >
+                <div className="card-body gap-3 p-5">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <p className="font-display font-bold text-charcoal">
+                        {c.reason}
+                      </p>
+                      <span
+                        className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${statusStyles[c.status]}`}
+                      >
+                        {c.status}
+                      </span>
+                    </div>
+                    <span className="text-xs text-slate-gray">{c.date}</span>
+                  </div>
+                  {c.providerName && c.providerName !== "General" && (
+                    <p className="text-sm text-slate-gray">
+                      Provider: {c.providerName}
+                    </p>
+                  )}
+                  <p className="rounded-lg bg-cream p-3 text-sm leading-relaxed text-charcoal">
+                    {c.details}
+                  </p>
+                  {c.reply && (
+                    <div className="rounded-lg border border-seal/30 bg-green-tint p-3">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-seal-dark">
+                        Management reply{c.replyDate ? ` · ${c.replyDate}` : ""}
+                      </p>
+                      <p className="mt-1 text-sm leading-relaxed text-charcoal">
+                        {c.reply}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </li>
             ))}

@@ -4,12 +4,16 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import ResidentDashboard from "@/components/resident-dashboard";
 import { SearchIcon } from "@/components/icons";
+import { getAllComplaints } from "@/lib/db/queries";
 
 export const metadata: Metadata = {
   title: "Resident dashboard",
 };
 
-export default function DashboardPage() {
+export const dynamic = "force-dynamic";
+
+export default async function DashboardPage() {
+  const complaints = await getAllComplaints();
   return (
     <>
       <Navbar />
@@ -36,7 +40,12 @@ export default function DashboardPage() {
         </div>
 
         <div className="mt-8">
-          <ResidentDashboard requests={[]} favorites={[]} notifications={[]} />
+          <ResidentDashboard
+            requests={[]}
+            favorites={[]}
+            notifications={[]}
+            complaints={complaints}
+          />
         </div>
       </main>
       <Footer />

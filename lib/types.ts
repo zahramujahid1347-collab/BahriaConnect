@@ -84,6 +84,8 @@ export interface Complaint {
   reportedBy: string;
   date: string;
   status: "Open" | "Under Review" | "Resolved" | "Dismissed";
+  reply?: string;
+  replyDate?: string;
 }
 
 export interface Notification {

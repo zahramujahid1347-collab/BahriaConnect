@@ -114,3 +114,40 @@ export async function submitRequest(input: SubmitRequestInput) {
   revalidatePath("/dashboard");
   revalidatePath("/management/requests");
 }
+
+function todayLabel(): string {
+  const now = new Date();
+  return `${now.getDate()} ${now.toLocaleString("en", { month: "short" })} ${now.getFullYear()}`;
+}
+
+export interface FileComplaintInput {
+  providerName: string;
+  reason: string;
+  details: string;
+}
+
+export async function fileComplaint(input: FileComplaintInput) {
+  const id = `C-${Date.now()}`;
+  await db.insert(complaints).values({
+    id,
+    providerId: "",
+    providerName: input.providerName.trim() || "General",
+    reason: input.reason,
+    details: input.details,
+    reportedBy: "Resident",
+    date: todayLabel(),
+    status: "Open",
+    reply: "",
+    replyDate: "",
+  });
+  revalidatePath("/management/complaints");
+  revalidatePath("/dashboard");
+}
+
+export async function replyToComplaint(id: string, reply: string) {
+  await db
+    .update(complaints)
+    .set({ reply: reply.trim(), replyDate: todayLabel() })
+    .where(eq(complaints.id, id));
+  revalidatePath("/management/complaints");
+}
