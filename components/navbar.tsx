@@ -9,7 +9,6 @@ const navLinks = [
   { href: "/#how-it-works", label: "How it works" },
   { href: "/services", label: "Services" },
   { href: "/#verification", label: "Verification" },
-  { href: "/management", label: "For Management" },
 ];
 
 export default function Navbar() {
