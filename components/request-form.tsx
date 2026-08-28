@@ -7,6 +7,7 @@ import { InitialsAvatar } from "./avatar";
 import { VerifiedBadge } from "./badges";
 import { CheckIcon, ArrowRightIcon } from "./icons";
 import { residentPrecincts } from "@/lib/data";
+import { submitRequest } from "@/lib/actions";
 
 const times = [
   "8:00 – 10:00 AM",
@@ -24,6 +25,27 @@ export default function RequestForm({ provider }: { provider: Provider }) {
   const [time, setTime] = useState(times[0]);
   const [precinct, setPrecinct] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [saving, setSaving] = useState(false);
+
+  async function handleSubmit() {
+    setSaving(true);
+    try {
+      await submitRequest({
+        providerId: provider.id,
+        providerName: provider.name,
+        service: provider.category,
+        categorySlug: provider.categorySlug,
+        date: date || "Flexible",
+        time,
+        description,
+        resident: "Zahra M.",
+        precinct: precinct || "—",
+      });
+      setSubmitted(true);
+    } finally {
+      setSaving(false);
+    }
+  }
 
   if (submitted) {
     return (
@@ -257,9 +279,10 @@ export default function RequestForm({ provider }: { provider: Provider }) {
                 </button>
                 <button
                   className="btn border-0 bg-seal font-display font-semibold text-paper hover:bg-seal-dark"
-                  onClick={() => setSubmitted(true)}
+                  onClick={handleSubmit}
+                  disabled={saving}
                 >
-                  Submit request
+                  {saving ? "Submitting…" : "Submit request"}
                 </button>
               </div>
             </div>

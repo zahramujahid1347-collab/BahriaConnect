@@ -5,15 +5,10 @@ import Footer from "@/components/footer";
 import { Eyebrow } from "@/components/section-heading";
 import CategoryBrowser from "@/components/category-browser";
 import { ServiceIcon } from "@/components/icons";
-import {
-  categories,
-  getCategory,
-  getProvidersByCategory,
-} from "@/lib/data";
+import { getCategory } from "@/lib/data";
+import { getProvidersByCategorySlug } from "@/lib/db/queries";
 
-export function generateStaticParams() {
-  return categories.map((c) => ({ category: c.slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
@@ -35,7 +30,7 @@ export default async function CategoryPage({
 }) {
   const { category } = await params;
   const cat = getCategory(category);
-  const list = getProvidersByCategory(category);
+  const list = await getProvidersByCategorySlug(category);
 
   if (!cat) {
     return (

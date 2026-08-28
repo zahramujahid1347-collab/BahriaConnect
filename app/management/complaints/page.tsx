@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import ComplaintManagement from "@/components/complaint-management";
-import { complaints } from "@/lib/data";
+import { getAllComplaints } from "@/lib/db/queries";
 
 export const metadata: Metadata = {
   title: "Complaints",
 };
 
-export default function ComplaintsPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ComplaintsPage() {
+  const complaints = await getAllComplaints();
+
   return (
     <div>
       <h1 className="font-display text-3xl font-extrabold tracking-tight text-ink">

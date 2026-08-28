@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { Complaint } from "@/lib/types";
 import { FlagIcon } from "./icons";
+import { setComplaintStatus } from "@/lib/actions";
 
 const statusStyles: Record<Complaint["status"], string> = {
   Open: "badge-error text-error-content",
@@ -25,8 +26,9 @@ export default function ComplaintManagement({
     status: overrides[c.id] ?? c.status,
   }));
 
-  function setStatus(id: string, next: Complaint["status"]) {
+  async function setStatus(id: string, next: Complaint["status"]) {
     setOverrides((o) => ({ ...o, [id]: next }));
+    await setComplaintStatus(id, next);
   }
 
   return (

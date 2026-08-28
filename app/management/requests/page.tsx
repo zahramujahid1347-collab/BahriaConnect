@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import RequestManagement from "@/components/request-management";
-import { requests } from "@/lib/data";
+import { getAllRequests } from "@/lib/db/queries";
 
 export const metadata: Metadata = {
   title: "Request management",
 };
 
-export default function RequestsPage() {
+export const dynamic = "force-dynamic";
+
+export default async function RequestsPage() {
+  const requests = await getAllRequests();
+
   return (
     <div>
       <h1 className="font-display text-3xl font-extrabold tracking-tight text-ink">

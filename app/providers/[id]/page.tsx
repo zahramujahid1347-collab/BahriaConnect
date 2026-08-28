@@ -12,7 +12,7 @@ import {
   ShieldCheckIcon,
   ArrowRightIcon,
 } from "@/components/icons";
-import { getProvider, getReviewsForProvider, getProvidersByCategory } from "@/lib/data";
+import { getProviderById, getReviewsForProvider, getProvidersByCategorySlug } from "@/lib/db/queries";
 
 export function generateMetadata(): Metadata {
   return { title: "Provider profile" };
@@ -24,7 +24,7 @@ export default async function ProviderPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const provider = getProvider(id);
+  const provider = await getProviderById(id);
 
   if (!provider) {
     return (
@@ -46,8 +46,8 @@ export default async function ProviderPage({
     );
   }
 
-  const providerReviews = getReviewsForProvider(provider.id);
-  const related = getProvidersByCategory(provider.categorySlug).filter(
+  const providerReviews = await getReviewsForProvider(provider.id);
+  const related = (await getProvidersByCategorySlug(provider.categorySlug)).filter(
     (p) => p.id !== provider.id,
   );
   const available = provider.verification === "Verified";

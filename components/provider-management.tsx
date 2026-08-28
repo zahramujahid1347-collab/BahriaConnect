@@ -5,6 +5,7 @@ import type { Provider, VerificationStatus } from "@/lib/types";
 import { InitialsAvatar } from "./avatar";
 import { RatingStars, VerificationBadge } from "./badges";
 import { CheckIcon, SearchIcon, XIcon } from "./icons";
+import { registerProvider, setProviderVerification } from "@/lib/actions";
 
 const filterOptions: ("All" | VerificationStatus)[] = [
   "All",
@@ -62,45 +63,33 @@ export default function ProviderManagement({
     setForm((f) => ({ ...f, [field]: value }));
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const name = form.name.trim();
     if (!name) return;
 
     const option = categoryOptions.find((c) => c.label === form.category);
-    const newProvider: Provider = {
-      id: `p-${Date.now()}`,
+    const saved = await registerProvider({
       name,
       category: form.category,
       categorySlug: option?.slug ?? "handymen",
-      title: form.category,
       experienceYears: Number(form.experience) || 0,
-      rating: 0,
-      reviewCount: 0,
-      jobsCompleted: 0,
-      availability: "Available",
-      serviceArea: "Bahria Town Karachi",
-      precincts: [],
-      verification: "Pending Verification",
+      contact: form.contact,
       skills: form.skills
         .split(",")
         .map((s) => s.trim())
         .filter(Boolean),
-      servicesOffered: [],
-      bio: "",
-      registeredDate: "Just now",
-      languages: ["Urdu"],
-      responseRate: 0,
-    };
+    });
 
-    setList((l) => [newProvider, ...l]);
+    setList((l) => [saved, ...l]);
     setForm(emptyForm);
-    setNotice(`${name} saved — pending verification.`);
+    setNotice(`${saved.name} saved — pending verification.`);
     dialogRef.current?.close();
   }
 
-  function setStatusFor(id: string, next: VerificationStatus) {
+  async function setStatusFor(id: string, next: VerificationStatus) {
     setOverrides((o) => ({ ...o, [id]: next }));
+    await setProviderVerification(id, next);
   }
 
   function actionFor(p: Provider) {

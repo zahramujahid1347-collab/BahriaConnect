@@ -5,7 +5,8 @@ import Footer from "@/components/footer";
 import { Eyebrow } from "@/components/section-heading";
 import { ProviderCard } from "@/components/provider-card";
 import { ServiceIcon, SearchIcon, ArrowRightIcon } from "@/components/icons";
-import { categories, categoryGroups, providers } from "@/lib/data";
+import { categories, categoryGroups } from "@/lib/data";
+import { getAllProviders } from "@/lib/db/queries";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -21,8 +22,10 @@ export default async function ServicesPage({
   const { q } = await searchParams;
   const query = q?.trim().toLowerCase() ?? "";
 
+  const allProviders = await getAllProviders();
+
   const results = query
-    ? providers.filter((p) =>
+    ? allProviders.filter((p) =>
         [
           p.name,
           p.category,

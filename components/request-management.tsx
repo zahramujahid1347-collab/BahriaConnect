@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { RequestStatus, ServiceRequest } from "@/lib/types";
 import { StatusBadge } from "./badges";
 import { FilterIcon } from "./icons";
+import { advanceRequest } from "@/lib/actions";
 
 const statuses: ("All" | RequestStatus)[] = [
   "All",
@@ -37,7 +38,7 @@ export default function RequestManagement({
       return true;
     });
 
-  function advance(r: ServiceRequest) {
+  async function advance(r: ServiceRequest) {
     const flow: RequestStatus[] = [
       "Requested",
       "Pending",
@@ -48,7 +49,9 @@ export default function RequestManagement({
     ];
     const idx = flow.indexOf(r.status);
     if (idx >= 0 && idx < flow.length - 1) {
-      setOverrides((o) => ({ ...o, [r.id]: flow[idx + 1] }));
+      const next = flow[idx + 1];
+      setOverrides((o) => ({ ...o, [r.id]: next }));
+      await advanceRequest(r.id, next);
     }
   }
 

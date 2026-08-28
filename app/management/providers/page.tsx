@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import ProviderManagement from "@/components/provider-management";
-import { providers } from "@/lib/data";
+import { getAllProviders } from "@/lib/db/queries";
 
 export const metadata: Metadata = {
   title: "Provider management",
 };
 
-export default function ProvidersPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ProvidersPage() {
+  const providers = await getAllProviders();
+
   return (
     <div>
       <h1 className="font-display text-3xl font-extrabold tracking-tight text-ink">

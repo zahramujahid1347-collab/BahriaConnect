@@ -2,30 +2,65 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { StatusBadge } from "@/components/badges";
 import { ArrowRightIcon } from "@/components/icons";
-import { requests } from "@/lib/data";
+import {
+  getAllProviders,
+  getAllRequests,
+  getAllComplaints,
+} from "@/lib/db/queries";
 
 export const metadata: Metadata = {
   title: "Management dashboard",
 };
 
-const stats = [
-  { label: "Registered providers", value: "342", hint: "All time" },
-  { label: "Verified providers", value: "318", hint: "Approved & visible" },
-  { label: "Pending verification", value: "24", hint: "Awaiting review" },
-  { label: "Active requests", value: "46", hint: "Open now" },
-  { label: "Completed this month", value: "287", hint: "August 2026" },
-  { label: "Open complaints", value: "7", hint: "Needs attention" },
-];
+export const dynamic = "force-dynamic";
 
-const mostRequested = [
-  "Plumbing",
-  "Electrical",
-  "AC Repair",
-  "Domestic Helpers",
-  "Carpentry",
-];
+export default async function ManagementPage() {
+  const [providers, requests, complaints] = await Promise.all([
+    getAllProviders(),
+    getAllRequests(),
+    getAllComplaints(),
+  ]);
 
-export default function ManagementPage() {
+  const activeStatuses = ["Requested", "Pending", "Accepted", "Scheduled", "In Progress"];
+
+  const stats = [
+    { label: "Registered providers", value: String(providers.length), hint: "All time" },
+    {
+      label: "Verified providers",
+      value: String(providers.filter((p) => p.verification === "Verified").length),
+      hint: "Approved & visible",
+    },
+    {
+      label: "Pending verification",
+      value: String(providers.filter((p) => p.verification === "Pending Verification").length),
+      hint: "Awaiting review",
+    },
+    {
+      label: "Active requests",
+      value: String(requests.filter((r) => activeStatuses.includes(r.status)).length),
+      hint: "Open now",
+    },
+    {
+      label: "Completed requests",
+      value: String(requests.filter((r) => r.status === "Completed").length),
+      hint: "Closed",
+    },
+    {
+      label: "Open complaints",
+      value: String(complaints.filter((c) => c.status === "Open").length),
+      hint: "Needs attention",
+    },
+  ];
+
+  const serviceCounts = new Map<string, number>();
+  for (const r of requests) {
+    serviceCounts.set(r.service, (serviceCounts.get(r.service) ?? 0) + 1);
+  }
+  const mostRequested = [...serviceCounts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([service]) => service);
+
   return (
     <div>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
@@ -115,6 +150,9 @@ export default function ManagementPage() {
                 </span>
               </li>
             ))}
+            {mostRequested.length === 0 && (
+              <li className="px-5 py-4 text-slate-gray">No requests yet.</li>
+            )}
           </ol>
         </div>
       </div>
