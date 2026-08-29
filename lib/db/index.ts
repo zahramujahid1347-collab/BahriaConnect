@@ -10,16 +10,13 @@ const connectionString = raw ? raw.split("?")[0] : "";
 
 const globalForDb = globalThis as unknown as { pool?: Pool };
 
-export const pool =
-  globalForDb.pool ??
-  new Pool({
+function makePool(): Pool {
+  return new Pool({
     connectionString,
     ssl: { rejectUnauthorized: false },
     max: 5,
   });
-
-if (process.env.NODE_ENV !== "production") {
-  globalForDb.pool = pool;
 }
 
+export const pool = (globalForDb.pool ??= makePool());
 export const db = drizzle(pool, { schema });
