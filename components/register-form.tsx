@@ -33,9 +33,12 @@ export default function RegisterForm({ initialRole }: { initialRole: Role }) {
   const [role, setRole] = useState<Role>(initialRole);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [precinct, setPrecinct] = useState(residentPrecincts[0] ?? "Bahria Town Karachi");
+  const [precinct, setPrecinct] = useState(
+    residentPrecincts[0] ?? "Bahria Town Karachi",
+  );
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [formError, setFormError] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -49,11 +52,18 @@ export default function RegisterForm({ initialRole }: { initialRole: Role }) {
       return;
     }
     setPasswordError("");
+    setFormError("");
     setLoading(true);
     try {
       await registerResident({ name, email, precinct });
       router.push("/dashboard");
-    } finally {
+    } catch (err) {
+      console.error("Registration error:", err);
+      setFormError(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again.",
+      );
       setLoading(false);
     }
   }
@@ -65,7 +75,11 @@ export default function RegisterForm({ initialRole }: { initialRole: Role }) {
     >
       <div className="card-body gap-5 p-6">
         {/* Role selection */}
-        <div role="radiogroup" aria-label="Choose your role" className="grid gap-3">
+        <div
+          role="radiogroup"
+          aria-label="Choose your role"
+          className="grid gap-3"
+        >
           {roles.map((r) => {
             const Icon = r.icon;
             const selected = role === r.id;
@@ -244,6 +258,13 @@ export default function RegisterForm({ initialRole }: { initialRole: Role }) {
             <p className="mt-1 text-xs text-clay">{passwordError}</p>
           )}
         </fieldset>
+
+        {/* Form-level error */}
+        {formError && (
+          <div className="rounded-lg border border-clay/40 bg-clay/10 px-4 py-3 text-sm text-clay">
+            {formError}
+          </div>
+        )}
 
         <button
           type="submit"
