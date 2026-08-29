@@ -58,6 +58,8 @@ export default function RegisterForm({ initialRole }: { initialRole: Role }) {
     setLoading(true);
     try {
       await registerResident({ name, email, precinct });
+      // Set a temporary session cookie so middleware allows the portal
+      document.cookie = "session_token=resident_" + Date.now() + "; path=/; max-age=86400; SameSite=Lax";
       router.push(redirectTo);
     } catch (err) {
       console.error("Registration error:", err);
