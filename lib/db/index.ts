@@ -5,12 +5,8 @@ import * as schema from "./schema";
 const raw =
   process.env.DATABASE_URL_UNPOOLED ?? process.env.DATABASE_URL;
 
-if (!raw) {
-  throw new Error("DATABASE_URL is not set. Add it to your .env file.");
-}
-
 // Strip query params (e.g. ?sslmode=require) and configure SSL explicitly.
-const connectionString = raw.split("?")[0];
+const connectionString = raw ? raw.split("?")[0] : "";
 
 const globalForDb = globalThis as unknown as { pool?: Pool };
 
