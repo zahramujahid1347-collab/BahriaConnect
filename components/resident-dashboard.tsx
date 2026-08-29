@@ -68,6 +68,36 @@ export default function ResidentDashboard({
 
   return (
     <div>
+      <div className="flex justify-end mb-2">
+        <button
+          type="button"
+          onClick={() => {
+            window.navigator.share?.({ title: "BahriaConnect", url: window.location.href }).catch(
+              () =>
+                alert(
+                  "To add BahriaConnect to your home screen: tap the Share button in your mobile browser and choose Add to Home Screen.",
+                ),
+            );
+          }}
+          className="btn btn-sm btn-ghost text-ink hover:bg-paper/20 flex items-center gap-1.5 text-sm font-semibold"
+        >
+          <svg
+            className="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <path d="M9 9v6" />
+            <circle cx="12" cy="12" r="4" />
+          </svg>
+          Add to Home Screen
+        </button>
+      </div>
+
       <div role="tablist" className="tabs tabs-box bg-card">
         {tabs.map((t) => (
           <button

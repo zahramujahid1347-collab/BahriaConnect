@@ -3,11 +3,17 @@
 import { revalidatePath } from "next/cache";
 import { eq } from "drizzle-orm";
 import { db } from "./db";
-import { providers, serviceRequests, complaints } from "./db/schema";
+import {
+  providers,
+  serviceRequests,
+  complaints,
+  residents,
+} from "./db/schema";
 import type {
   VerificationStatus,
   RequestStatus,
   Provider,
+  Resident,
 } from "./types";
 
 export interface RegisterProviderInput {
@@ -150,4 +156,26 @@ export async function replyToComplaint(id: string, reply: string) {
     .set({ reply: reply.trim(), replyDate: todayLabel() })
     .where(eq(complaints.id, id));
   revalidatePath("/management/complaints");
+}
+
+export interface RegisterResidentInput {
+  name: string;
+  email: string;
+  precinct?: string;
+}
+
+export async function registerResident(
+  input: RegisterResidentInput,
+): Promise<Resident> {
+  const resident: Resident = {
+    id: `r-${Date.now()}`,
+    name: input.name.trim(),
+    email: input.email.trim(),
+    precinct: input.precinct?.trim() || "Bahria Town Karachi",
+    registeredDate: todayLabel(),
+  };
+  await db.insert(residents).values(resident);
+  revalidatePath("/dashboard");
+  revalidatePath("/management");
+  return resident;
 }

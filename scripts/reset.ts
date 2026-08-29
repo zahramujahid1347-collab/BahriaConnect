@@ -5,6 +5,7 @@ import {
   complaints,
   serviceRequests,
   providers,
+  residents,
 } from "../lib/db/schema";
 
 async function main() {
@@ -12,7 +13,10 @@ async function main() {
   await db.delete(complaints);
   await db.delete(serviceRequests);
   await db.delete(providers);
-  console.log("Cleared providers, service requests, complaints, and reviews.");
+  await db.delete(residents);
+  console.log(
+    "Cleared providers, service requests, complaints, reviews, and residents.",
+  );
   await pool.end();
 }
 

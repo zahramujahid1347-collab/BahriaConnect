@@ -23,6 +23,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: "#2f5d3a",
 };
 
 export const metadata: Metadata = {
@@ -40,6 +41,15 @@ export const metadata: Metadata = {
     "electrician",
     "maid",
   ],
+  manifest: "/manifest",
+  appleWebApp: {
+    capable: true,
+    title: "BahriaConnect",
+    statusBarStyle: "default",
+  },
+  icons: {
+    apple: "/secondary_logo.png",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -48,6 +58,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${fraunces.variable} ${ibmPlexSans.variable} ${ibmPlexMono.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="manifest" href="/manifest" />
+        <link rel="apple-touch-icon" href="/secondary_logo.png" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-title" content="BahriaConnect" />
+      </head>
       <body className="flex min-h-full flex-col bg-base-100 text-base-content">
         {children}
       </body>

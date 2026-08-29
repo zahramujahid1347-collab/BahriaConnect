@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { CheckIcon, HomeIcon, ShieldCheckIcon } from "./icons";
 import { residentPrecincts } from "@/lib/data";
+import { registerResident } from "@/lib/actions";
 
 type Role = "resident" | "management";
 
@@ -15,13 +16,13 @@ const roles: {
 }[] = [
   {
     id: "resident",
-    title: "I’m a Resident",
+    title: "I'm a Resident",
     description: "I need to find and request home services.",
     icon: HomeIcon,
   },
   {
     id: "management",
-    title: "I’m Management",
+    title: "I'm Management",
     description: "I verify providers and oversee platform activity.",
     icon: ShieldCheckIcon,
   },
@@ -30,10 +31,31 @@ const roles: {
 export default function RegisterForm({ initialRole }: { initialRole: Role }) {
   const router = useRouter();
   const [role, setRole] = useState<Role>(initialRole);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [precinct, setPrecinct] = useState(residentPrecincts[0] ?? "Bahria Town Karachi");
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    router.push(role === "resident" ? "/dashboard" : "/management");
+    if (role !== "resident") {
+      router.push("/management");
+      return;
+    }
+    if (!password.trim()) {
+      setPasswordError("Please create a password to continue.");
+      return;
+    }
+    setPasswordError("");
+    setLoading(true);
+    try {
+      await registerResident({ name, email, precinct });
+      router.push("/dashboard");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -100,6 +122,9 @@ export default function RegisterForm({ initialRole }: { initialRole: Role }) {
                 className="input w-full border-ink/15 bg-cream"
                 placeholder="Zahra Mehmood"
                 autoComplete="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
               />
             </fieldset>
 
@@ -108,7 +133,11 @@ export default function RegisterForm({ initialRole }: { initialRole: Role }) {
                 <legend className="fieldset-legend font-display font-semibold text-ink">
                   Precinct
                 </legend>
-                <select className="select w-full border-ink/15 bg-cream">
+                <select
+                  className="select w-full border-ink/15 bg-cream"
+                  value={precinct}
+                  onChange={(e) => setPrecinct(e.target.value)}
+                >
                   {residentPrecincts.map((p) => (
                     <option key={p}>{p}</option>
                   ))}
@@ -187,39 +216,42 @@ export default function RegisterForm({ initialRole }: { initialRole: Role }) {
             className="input w-full border-ink/15 bg-cream"
             placeholder="you@example.com"
             autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </fieldset>
 
         <fieldset className="fieldset">
           <legend className="fieldset-legend font-display font-semibold text-ink">
-            Password
+            Password <span className="text-clay">*</span>
           </legend>
           <input
             type="password"
-            className="input w-full border-ink/15 bg-cream"
+            className={`input w-full border-ink/15 bg-cream ${
+              passwordError ? "border-clay" : ""
+            }`}
             placeholder="Create a secure password"
             autoComplete="new-password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              if (passwordError) setPasswordError("");
+            }}
+            required
           />
+          {passwordError && (
+            <p className="mt-1 text-xs text-clay">{passwordError}</p>
+          )}
         </fieldset>
 
         <button
           type="submit"
+          disabled={loading}
           className="btn w-full border-0 bg-seal font-display font-semibold text-paper hover:bg-seal-dark"
         >
-          Create {role === "resident" ? "resident" : "management"} account
+          {loading ? "Creating account…" : "Create account"}
         </button>
-
-        {role === "management" ? (
-          <p className="text-center text-xs text-ink/55">
-            Management account requests are reviewed by Bahria Town
-            administration before access is granted.
-          </p>
-        ) : (
-          <div className="flex items-start gap-2 rounded-lg bg-sage/60 p-3 text-sm text-ink/75">
-            <ShieldCheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-seal" />
-            Your address is verified against Bahria Town management records.
-          </div>
-        )}
       </div>
     </form>
   );

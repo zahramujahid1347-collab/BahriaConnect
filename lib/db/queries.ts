@@ -5,12 +5,14 @@ import {
   serviceRequests,
   complaints,
   reviews,
+  residents,
 } from "./schema";
 import type {
   Provider,
   ServiceRequest,
   Complaint,
   Review,
+  Resident,
 } from "@/lib/types";
 
 export async function getAllProviders(): Promise<Provider[]> {
@@ -49,6 +51,11 @@ export async function getReviewsForProvider(
 export async function getAllRequests(): Promise<ServiceRequest[]> {
   const rows = await db.select().from(serviceRequests);
   return rows as unknown as ServiceRequest[];
+}
+
+export async function getAllResidents(): Promise<Resident[]> {
+  const rows = await db.select().from(residents);
+  return rows as unknown as Resident[];
 }
 
 export async function getAllComplaints(): Promise<Complaint[]> {

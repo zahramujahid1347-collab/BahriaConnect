@@ -88,6 +88,14 @@ export interface Complaint {
   replyDate?: string;
 }
 
+export interface Resident {
+  id: string;
+  name: string;
+  email: string;
+  precinct: string;
+  registeredDate: string;
+}
+
 export interface Notification {
   id: string;
   title: string;

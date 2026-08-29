@@ -55,6 +55,14 @@ export const complaints = pgTable("complaints", {
   replyDate: text("reply_date").notNull().default(""),
 });
 
+export const residents = pgTable("residents", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  precinct: text("precinct").notNull().default("Bahria Town Karachi"),
+  registeredDate: text("registered_date").notNull().default(""),
+});
+
 export const reviews = pgTable("reviews", {
   id: text("id").primaryKey(),
   providerId: text("provider_id").notNull(),

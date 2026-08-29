@@ -443,17 +443,17 @@ export default function Home() {
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
               <Link
-                href="/services"
+                href="/login"
                 className="inline-flex items-center justify-center gap-2 rounded-md bg-seal px-4 py-2 text-sm font-medium text-paper transition-colors hover:bg-seal-dark"
               >
-                Browse services
+                Sign In
                 <ChevronRightIcon className="h-4 w-4" />
               </Link>
               <Link
                 href="/register"
                 className="inline-flex items-center justify-center gap-2 rounded-md border border-ink/20 px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-paper"
               >
-                Join as a resident
+                Sign Up
               </Link>
             </div>
           </Reveal>
