@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { CheckIcon, HomeIcon, ShieldCheckIcon } from "./icons";
 import { residentPrecincts } from "@/lib/data";
 import { registerResident } from "@/lib/actions";
@@ -30,6 +30,8 @@ const roles: {
 
 export default function RegisterForm({ initialRole }: { initialRole: Role }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("next") || "/dashboard";
   const [role, setRole] = useState<Role>(initialRole);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -44,7 +46,7 @@ export default function RegisterForm({ initialRole }: { initialRole: Role }) {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (role !== "resident") {
-      router.push("/management");
+      router.push(redirectTo);
       return;
     }
     if (!password.trim()) {
@@ -56,7 +58,7 @@ export default function RegisterForm({ initialRole }: { initialRole: Role }) {
     setLoading(true);
     try {
       await registerResident({ name, email, precinct });
-      router.push("/dashboard");
+      router.push(redirectTo);
     } catch (err) {
       console.error("Registration error:", err);
       setFormError(

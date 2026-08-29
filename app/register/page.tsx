@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import Navbar from "@/components/navbar";
@@ -31,7 +32,9 @@ export default async function RegisterPage({
           </p>
         </div>
 
-        <RegisterForm initialRole={initialRole} />
+        <Suspense fallback={<div className="card mt-8 h-64 animate-pulse rounded-box bg-card" />}>
+          <RegisterForm initialRole={initialRole} />
+        </Suspense>
 
         <p className="mt-6 text-center text-sm text-ink/60">
           Already have an account?{" "}
