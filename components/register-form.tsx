@@ -120,7 +120,7 @@ export default function RegisterForm({ initialRole }: { initialRole: Role }) {
               <input
                 type="text"
                 className="input w-full border-ink/15 bg-cream"
-                placeholder="Zahra Mehmood"
+                placeholder="Ayesha"
                 autoComplete="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
