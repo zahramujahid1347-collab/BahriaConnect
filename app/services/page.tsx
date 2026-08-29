@@ -14,6 +14,8 @@ export const metadata: Metadata = {
     "Browse all verified home services in Bahria Town Karachi — maids, plumbers, electricians, AC technicians, and more.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function ServicesPage({
   searchParams,
 }: {

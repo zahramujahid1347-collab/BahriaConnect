@@ -5,6 +5,8 @@ import Footer from "@/components/footer";
 import RequestForm from "@/components/request-form";
 import { getProviderById } from "@/lib/db/queries";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Request service",
 };
