@@ -14,6 +14,8 @@ import {
 } from "@/components/icons";
 import { getProviderById, getReviewsForProvider, getProvidersByCategorySlug } from "@/lib/db/queries";
 
+export const dynamic = "force-dynamic";
+
 export function generateMetadata(): Metadata {
   return { title: "Provider profile" };
 }
